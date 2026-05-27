@@ -409,7 +409,7 @@ img, video, svg {
     rgba(255, 255, 255, 0.03);
 }
 
-/* Trust cards */
+/* Trust cards / Wall of Trust */
 .callout {
   padding: 16px;
   border-radius: var(--radius);
@@ -417,6 +417,124 @@ img, video, svg {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   box-shadow: var(--shadow2);
 }
+
+/* Neon glow tokens for Trust page */
+.trust-wall {
+  margin-top: 14px;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Testimonial cards: border Neon Glow + hover grow */
+.testimonial {
+  border-radius: var(--radius2);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.18), var(--shadow2);
+  padding: 16px;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.testimonial.neon-purple {
+  border-color: rgba(124, 58, 237, 0.32);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.16), var(--shadow2);
+}
+
+.testimonial:hover {
+  transform: scale(1.02);
+  border-color: rgba(34, 211, 238, 0.52);
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.26), 0 18px 60px rgba(0, 0, 0, 0.55);
+}
+
+.testimonial .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.testimonial .who {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background:
+    radial-gradient(16px 16px at 25% 30%, rgba(34, 211, 238, 0.55), transparent 60%),
+    radial-gradient(18px 18px at 70% 70%, rgba(124, 58, 237, 0.55), transparent 60%),
+    rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  flex: 0 0 auto;
+}
+
+.testimonial .name {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.testimonial .meta {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+}
+
+.testimonial p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Leave your vibe CTA */
+.vibe-cta {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.vibe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(34, 211, 238, 0.40);
+  background:
+    radial-gradient(600px circle at 20% 10%, rgba(34, 211, 238, 0.30), transparent 45%),
+    radial-gradient(600px circle at 85% 0%, rgba(124, 58, 237, 0.24), transparent 55%),
+    rgba(255, 255, 255, 0.03);
+  font-weight: 950;
+  letter-spacing: 0.2px;
+  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.06);
+  color: var(--text);
+  animation: vibePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes vibePulse {
+  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.06); }
+  50% { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 0 10px rgba(34, 211, 238, 0.10); }
+}
+
+/* Layout for Trust wall at tablet/desktop */
+@media (min-width: 768px) {
+  .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .trust-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 
 .list {
   margin: 12px 0 0;
