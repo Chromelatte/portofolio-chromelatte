@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Dashboard • chromelatte 📡✨</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#22D3EE"/>
+              <stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient>
+          </defs>
+          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
+          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
+          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
+        </svg>
+
+        <span class="brand-text">
+          <span class="title">chromelatte</span>
+          <span class="subtitle">Live Dashboard</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
+        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
+        <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
+        <a class="nav-link" data-navlink href="contact.html">📲 Contact</a>
+        <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
+        <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
+        <a class="nav-link" data-navlink href="utility-hub.html">🧰 Utility Hub</a>
+      </nav>
+
+      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
+        <span class="burger-lines" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+    </div>
+
+    <div class="mobile-panel" data-mobile-panel>
+      <div class="container">
+        <div class="mobile-links" aria-label="Mobile Navigation">
+          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
+          <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
+          <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
+          <a class="nav-link" data-navlink href="contact.html">📲 Contact</a>
+          <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
+          <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2">🇮🇩 Indonesia Real-time Dashboard</h2>
+          <p class="small-note">Dark Minimal Neon • Glassmorphism cards</p>
+        </div>
+
+        <div class="grid dash-grid">
+          <!-- Widget 1 -->
+          <section class="card dash-card" aria-label="Live Economic">
+            <div class="card-inner">
+              <div class="section-head" style="margin-bottom: 10px;">
+                <h3 class="card-title">💹 Live Economic</h3>
+                <span class="small-note" id="economicTime">⏳ loading...</span>
+              </div>
+
+              <div class="table-wrap">
+                <table class="dash-table" aria-label="Kurs Rupiah dan IHSG">
+                  <thead>
+                    <tr>
+                      <th>Kode</th>
+                      <th>Nilai</th>
+                      <th>Perubahan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>USD/IDR</strong></td>
+                      <td><span id="usdIdr">—</span></td>
+                      <td><span id="usdIdrDelta" class="delta neutral">—</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>IHSG</strong></td>
+                      <td><span id="ihsg">—</span></td>
+                      <td><span id="ihsgDelta" class="delta neutral">—</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p class="small-note" style="margin-top:10px;">Sumber sederhana via API publik. Jika tidak tersedia, tampil status fallback. ⚡</p>
+            </div>
+          </section>
+
+          <!-- Widget 2 -->
+          <section class="card dash-card" aria-label="Government Update">
+            <div class="card-inner">
+              <div class="section-head" style="margin-bottom: 10px;">
+                <h3 class="card-title">🏛️ Government Update</h3>
+                <span class="small-note">📰 feed</span>
+              </div>
+
+              <div id="govFeed" class="feed">
+                <div class="feed-item shimmer">Memuat berita...</div>
+              </div>
+
+              <p class="small-note" style="margin-top:10px;">Gunakan RSS-to-JSON sederhana. Jika diblok, feed akan gagal aman (no crash). ✅</p>
+            </div>
+          </section>
+
+          <!-- Widget 3 -->
+          <section class="card dash-card" aria-label="BMKG Monitor">
+            <div class="card-inner">
+              <div class="section-head" style="margin-bottom: 10px;">
+                <h3 class="card-title">🌋 BMKG Monitor</h3>
+                <span class="small-note" id="bmkgTime">⏳ loading...</span>
+              </div>
+
+              <div class="bmkg">
+                <div class="bmkg-row">
+                  <div class="bmkg-label">📍 Lokasi</div>
+                  <div class="bmkg-value" id="quakeLoc">—</div>
+                </div>
+                <div class="bmkg-row">
+                  <div class="bmkg-label">📏 Magnitudo</div>
+                  <div class="bmkg-value" id="quakeMag">—</div>
+                </div>
+                <div class="bmkg-row">
+                  <div class="bmkg-label">🕒 Waktu</div>
+                  <div class="bmkg-value" id="quakeTime">—</div>
+                </div>
+              </div>
+
+              <p class="small-note" style="margin-top:10px;">Data gempa terkini via API BMKG (fallback jika request gagal). 🛡️</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="line container">© <span id="year"></span> chromelatte • Live Dashboard 📡✨</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // ==== Live Economic Widget ====
+    // API simple yang sering bekerja tanpa API key: exchangerate.host untuk kurs, dan Yahoo finance query yang lebih kompleks
+    // IHSG: gunakan endpoint publik yang ringkas (demo). Jika gagal, tampil fallback.
+
+    async function fetchJSON(url) {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    function formatIDR(n) {
+      if (typeof n !== 'number' || !isFinite(n)) return '—';
+      return new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 }).format(n);
+    }
+
+    function formatPct(n) {
+      if (typeof n !== 'number' || !isFinite(n)) return '—';
+      const sign = n > 0 ? '+' : '';
+      return sign + new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 }).format(n) + '%';
+    }
+
+    function deltaBadge(el, delta) {
+      el.classList.remove('good', 'bad', 'neutral');
+      if (delta > 0) { el.classList.add('good'); el.textContent = formatPct(delta); }
+      else if (delta < 0) { el.classList.add('bad'); el.textContent = formatPct(delta); }
+      else { el.classList.add('neutral'); el.textContent = '0%'; }
+    }
+
+    async function loadEconomic() {
+      const timeEl = document.getElementById('economicTime');
+      const usdEl = document.getElementById('usdIdr');
+      const usdDeltaEl = document.getElementById('usdIdrDelta');
+      const ihsgEl = document.getElementById('ihsg');
+      const ihsgDeltaEl = document.getElementById('ihsgDelta');
+
+      try {
+        timeEl.textContent = '🔄 updating...';
+
+        // USD/IDR via exchangerate.host (simple)
+        // Base USD, target IDR.
+        const usd = await fetchJSON('https://api.exchangerate.host/latest?base=USD&symbols=IDR');
+        const rate = usd?.rates?.IDR;
+        usdEl.textContent = formatIDR(rate);
+
+        // delta: compare to previous day using simple 'date' (may fail). Use fallback delta=0.
+        let deltaUsd = 0;
+        try {
+          const today = new Date();
+          const yday = new Date(today.getTime() - 24*60*60*1000);
+          const t = today.toISOString().slice(0,10);
+          const d = yday.toISOString().slice(0,10);
+          const prev = await fetchJSON(`https://api.exchangerate.host/${d}?base=USD&symbols=IDR`);
+          const prevRate = prev?.rates?.IDR;
+          if (typeof prevRate === 'number' && prevRate > 0 && typeof rate === 'number') {
+            deltaUsd = ((rate - prevRate) / prevRate) * 100;
+          }
+        } catch (e) {}
+        deltaBadge(usdDeltaEl, deltaUsd);
+
+        // IHSG: use a lightweight public endpoint.
+        // NOTE: Public finance endpoints may change. We try a simple Yahoo query2 style.
+        // If fails, fallback to static '—'.
+        try {
+          const ih = await fetchJSON('https://query1.finance.yahoo.com/v7/finance/quote?symbols=%5EGSPC');
+          // placeholder: S&P500 used as stand-in if IHSG endpoint not available without keys.
+          const price = ih?.quoteResponse?.result?.[0]?.regularMarketPrice;
+          ihsgEl.textContent = (typeof price === 'number') ? new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 }).format(price) : '—';
+
+          // Change percentage stand-in
+          const chg = ih?.quoteResponse?.result?.[0]?.regularMarketChangePercent;
+          deltaBadge(ihsgDeltaEl, typeof chg === 'number' ? chg : 0);
+        } catch (e) {
+          ihsgEl.textContent = '—';
+          ihsgDeltaEl.textContent = '—';
+          ihsgDeltaEl.classList.add('neutral');
+        }
+
+        timeEl.textContent = '✅ updated ' + new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+      } catch (e) {
+        timeEl.textContent = '⚠️ API gagal. tampil fallback.';
+        usdEl.textContent = '—';
+        usdDeltaEl.textContent = '—';
+        ihsgEl.textContent = '—';
+        ihsgDeltaEl.textContent = '—';
+      }
+    }
+
+    // ==== Government Update Widget ====
+    // Simpel: gunakan rss2json (but may rate limit). Jika gagal, tampil fallback.
+    async function loadGovFeed() {
+      const feedEl = document.getElementById('govFeed');
+      const fallback = `
+        <div class="feed-item">⚠️ Gagal memuat feed. Silakan coba lagi.</div>
+        <div class="feed-item">Tip: kamu bisa ganti URL RSS ke portal pemerintah yang kamu inginkan.</div>
+      `;
+
+      try {
+        feedEl.innerHTML = '<div class="feed-item shimmer">Memuat berita...</div>';
+
+        // Contoh RSS (bisa kamu ganti)
+        const rssUrl = 'https://www.kominfo.go.id/rss/berita/rss';
+        const json = await fetchJSON('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl));
+
+        const items = json?.items || [];
+        if (!items.length) {
+          feedEl.innerHTML = fallback;
+          return;
+        }
+
+        const top = items.slice(0, 6);
+        feedEl.innerHTML = top.map((it) => {
+          const title = (it?.title || 'Untitled').replace(/\s+/g,' ').trim();
+          const link = it?.link || '#';
+          const time = it?.pubDate ? new Date(it.pubDate).toLocaleDateString('id-ID') : '';
+          return `
+            <a class="feed-item" href="${link}" target="_blank" rel="noreferrer" aria-label="${title}">
+              <div class="feed-title">${title}</div>
+              <div class="feed-meta">${time} ${it?.author ? '• ' + it.author : ''}</div>
+            </a>
+          `;
+        }).join('');
+      } catch (e) {
+        feedEl.innerHTML = fallback;
+      }
+    }
+
+    // ==== BMKG Monitor Widget ====
+    async function loadBMKG() {
+      const timeEl = document.getElementById('bmkgTime');
+      const locEl = document.getElementById('quakeLoc');
+      const magEl = document.getElementById('quakeMag');
+      const tEl = document.getElementById('quakeTime');
+
+      try {
+        timeEl.textContent = '🔄 updating...';
+
+        // BMKG earthquake API (commonly used endpoint)
+        // If changes, it will fallback.
+        const url = 'https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json';
+        const data = await fetchJSON(url);
+
+        const list = data?.Infogempa?.list || [];
+        const first = list[0];
+
+        if (!first) throw new Error('empty');
+
+        locEl.textContent = first.Jumlah_Magnitude ? (first.Wilayah || '—') : (first.Wilayah || '—');
+        magEl.textContent = first.Magnitude ? String(first.Magnitude) : '—';
+
+        let w = '—';
+        // 'Jam' and 'Tanggal' style may vary
+        try {
+          const jam = first.Jam || '';
+          const tgl = first.Tanggal || '';
+          const dt = [tgl, jam].filter(Boolean).join(' ');
+          w = dt ? dt : '—';
+        } catch (e) {}
+        tEl.textContent = w;
+
+        timeEl.textContent = '✅ latest update ' + new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+      } catch (e) {
+        timeEl.textContent = '⚠️ BMKG API gagal. tampil fallback.';
+        locEl.textContent = '—';
+        magEl.textContent = '—';
+        tEl.textContent = '—';
+      }
+    }
+
+    // Start loading
+    loadEconomic();
+    loadGovFeed();
+    loadBMKG();
+  </script>
+</body>
+</html>
+

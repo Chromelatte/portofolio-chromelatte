@@ -270,8 +270,27 @@ img, video, svg {
   background:
     radial-gradient(600px circle at 20% 10%, rgba(34, 211, 238, 0.25), transparent 40%),
     linear-gradient(180deg, rgba(34, 211, 238, 0.16), rgba(124, 58, 237, 0.10));
-  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.07);
+  box-shadow:
+    0 0 0 6px rgba(34, 211, 238, 0.07),
+    0 0 24px rgba(34, 211, 238, 0.12),
+    0 0 46px rgba(124, 58, 237, 0.10);
+  position: relative;
 }
+
+/* Neon hover for generator buttons */
+.btn-primary:hover {
+  box-shadow:
+    0 0 0 6px rgba(34, 211, 238, 0.10),
+    0 0 34px rgba(34, 211, 238, 0.18),
+    0 0 58px rgba(124, 58, 237, 0.16);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  transform: none;
+  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.05);
+}
+
 
 .btn-ghost { background: rgba(255, 255, 255, 0.03); }
 
@@ -535,8 +554,163 @@ img, video, svg {
   .trust-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+/* ===== Dashboard (Live Economic / Gov / BMKG) ===== */
+.dash-grid {
+  grid-template-columns: 1fr;
+}
+
+.dash-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(34, 211, 238, 0.24);
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.12), var(--shadow2);
+  overflow: hidden;
+}
+
+.dash-card .card-inner {
+  padding: 16px;
+}
+
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+.dash-table th,
+.dash-table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.dash-table th {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.2px;
+}
+
+.delta {
+  font-weight: 950;
+  padding: 6px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.delta.good {
+  color: rgba(52, 211, 153, 0.95);
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.08);
+}
+
+.delta.bad {
+  color: rgba(248, 113, 113, 0.95);
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.08);
+}
+
+.delta.neutral {
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.table-wrap {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0,0,0,0.14);
+  overflow: hidden;
+}
+
+.feed {
+  display: grid;
+  gap: 10px;
+}
+
+.feed-item {
+  display: block;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.feed-item:hover {
+  transform: translateY(-1px);
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.feed-title {
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.feed-meta {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: shimmerMove 1.1s ease-in-out infinite;
+}
+
+@keyframes shimmerMove {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.bmkg {
+  display: grid;
+  gap: 10px;
+}
+
+.bmkg-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0,0,0,0.14);
+}
+
+.bmkg-label {
+  font-weight: 900;
+  color: rgba(255,255,255,0.70);
+}
+
+.bmkg-value {
+  font-weight: 950;
+  word-break: break-word;
+}
+
+@media (min-width: 768px) {
+  .dash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .dash-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bmkg-row { grid-template-columns: 140px 1fr; }
+}
 
 .list {
+
   margin: 12px 0 0;
   padding-left: 18px;
   color: var(--muted);
@@ -576,9 +750,85 @@ img, video, svg {
   .grid.projects { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+/* ===== Generator (Neon Name / Secure Password / QR Code) ===== */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.tab-btn {
+  position: relative;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 10px 14px;
+  font-weight: 950;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: 160ms ease;
+  user-select: none;
+}
+
+.tab-btn:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.tab-btn.active {
+  color: rgba(255, 255, 255, 0.98);
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.07);
+  background:
+    radial-gradient(600px circle at 20% 10%, rgba(34, 211, 238, 0.22), transparent 45%),
+    radial-gradient(600px circle at 85% 0%, rgba(124, 58, 237, 0.18), transparent 55%),
+    rgba(255, 255, 255, 0.03);
+}
+
+.tool-panel {
+  margin-top: 0;
+  border-radius: var(--radius);
+}
+
+/* Smooth reveal when JS switches `hidden` */
+.tool-panel:not([hidden]) {
+  animation: toolFadeIn 180ms ease-out;
+}
+
+@keyframes toolFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.neon-preview {
+  font-size: 34px;
+  font-weight: 1000;
+  letter-spacing: 0.8px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background:
+    radial-gradient(600px circle at 20% 10%, rgba(34, 211, 238, 0.12), transparent 40%),
+    rgba(255, 255, 255, 0.02);
+  text-align: center;
+  text-shadow:
+    0 0 6px rgba(34, 211, 238, 0.35),
+    0 0 18px rgba(34, 211, 238, 0.22);
+}
+
+#qrWrap {
+  scrollbar-color: rgba(34, 211, 238, 0.5) rgba(255, 255, 255, 0.05);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mobile-panel { transition: none; }
   .btn, .nav-link { transition: none; }
   .burger-lines span { transition: none; }
+  .tool-panel:not([hidden]) { animation: none; }
 }
+
 

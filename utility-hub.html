@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Utility Hub • Universal File & Data Powerhouse</title>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Cyberpunk fonts (optional via system fallback; no external font required) -->
+
+  <!-- SheetJS (Excel) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.20.3/dist/xlsx.full.min.js"></script>
+
+  <!-- pdf-lib (PDF ops) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <!-- pdf.js text extraction for PDF->TXT -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.377/build/pdf.min.js"></script>
+
+  <!-- docx (extract DOCX) -->
+  <script src="https://cdn.jsdelivr.net/npm/docx@9.5.1/build/index.umd.js"></script>
+
+  <!-- pizzip (used by docx; kept explicit for compatibility) -->
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.6/dist/pizzip.min.js"></script>
+
+  <!-- Tesseract.js (OCR) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <style>
+    /* Page-specific override: Utility Hub */
+    body {
+      background: linear-gradient(180deg, #050810 0%, #101015 100%);
+      color: rgba(255,255,255,0.92);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain/noise to avoid flat look */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.08;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.20), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(34,211,238,0.16), transparent 42%),
+        radial-gradient(circle at 50% 70%, rgba(124,58,237,0.14), transparent 45%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 3px);
+      mix-blend-mode: overlay;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.05;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-size: 140px 140px;
+      mix-blend-mode: overlay;
+    }
+
+    .container, .utility-hero, .util-card, main, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+
+    .utility-hero {
+      padding: 26px 0 14px;
+    }
+
+    .utility-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    @media (min-width: 768px) {
+      .utility-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 1024px) {
+      .utility-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+.util-card {
+      border-radius: 18px;
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      background: rgba(255,255,255,0.04);
+      box-shadow:
+        0 0 0 1px rgba(255, 0, 255, 0.10),
+        0 14px 50px rgba(0,0,0,0.65);
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.45));
+      overflow: hidden;
+      position: relative;
+    }
+
+    .util-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background:
+        radial-gradient(500px circle at 20% 0%, rgba(0, 240, 255, 0.25), transparent 55%),
+        radial-gradient(420px circle at 90% 10%, rgba(255, 0, 255, 0.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .util-card > * { position: relative; }
+
+    .util-card .inner {
+      padding: 16px;
+    }
+
+    .util-title {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      font-weight: 950;
+    }
+
+    .util-sub {
+      margin: 6px 0 0;
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+    }
+
+    .glow-btn {
+      border-radius: 14px;
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      background: rgba(0, 240, 255, 0.10);
+      box-shadow:
+        0 0 0 6px rgba(0, 240, 255, 0.05),
+        0 0 28px rgba(0, 240, 255, 0.10);
+      color: rgba(255,255,255,0.96);
+      font-weight: 900;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: 160ms ease;
+      user-select: none;
+    }
+
+    .glow-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 0, 255, 0.32);
+      box-shadow:
+        0 0 0 6px rgba(255, 0, 255, 0.07),
+        0 0 34px rgba(255, 0, 255, 0.14);
+    }
+
+    .util-card:hover {
+      border-color: rgba(0, 240, 255, 0.48);
+      box-shadow:
+        0 0 0 1px rgba(255, 0, 255, 0.18),
+        0 18px 70px rgba(0,0,0,0.78);
+    }
+
+    .dropzone {
+      border-radius: 16px;
+      border: 1px dashed rgba(0, 240, 255, 0.45);
+      background: rgba(0, 240, 255, 0.06);
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .dropzone.dragover {
+      background: rgba(255, 0, 255, 0.08);
+      border-color: rgba(255, 0, 255, 0.55);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .field-row.two {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 560px) {
+      .field-row.two { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Force consistent dark dropdown styling (avoid OS/browser default) */
+    select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background-color: #1a1a1a !important;
+      background-image: none !important;
+      color: #ffffff !important;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      -moz-appearance: none;
+      font-weight: 800;
+      letter-spacing: 0.1px;
+    }
+
+    select:focus {
+      border-color: rgba(0, 240, 255, 0.65);
+      box-shadow: 0 0 0 6px rgba(0, 240, 255, 0.06);
+    }
+
+    select option {
+      background-color: #1a1a1a !important;
+      color: #ffffff !important;
+      font-weight: 800;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: #1a1a1a;
+      color: #ffffff;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      border-color: rgba(0, 240, 255, 0.55);
+      box-shadow: 0 0 0 6px rgba(0, 240, 255, 0.06);
+    }
+
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-size: 12.5px;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-size: 12.5px;
+    }
+
+    .prebox {
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      background: rgba(0,0,0,0.35);
+      padding: 12px;
+      overflow: auto;
+      max-height: 46vh;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 10px;
+    }
+
+    .stat .k {
+      color: rgba(255,255,255,0.65);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .stat .v {
+      margin-top: 6px;
+      font-weight: 1000;
+      font-size: 15px;
+    }
+
+    .badge-privacy {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 0, 255, 0.28);
+      background: rgba(255, 0, 255, 0.08);
+      box-shadow: 0 0 0 6px rgba(255, 0, 255, 0.04);
+      color: rgba(255,255,255,0.90);
+      font-weight: 900;
+    }
+
+    footer.utility-footer {
+      padding-bottom: 48px;
+    }
+
+.hint {
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    /* Ensure all labels above inputs are clearly readable */
+    label {
+      color: #cccccc;
+      font-weight: 800;
+    }
+
+    label.small-note {
+      color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#22D3EE"/>
+              <stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient>
+          </defs>
+          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
+          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
+          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
+        </svg>
+        <span class="brand-text">
+          <span class="title">chromelatte</span>
+          <span class="subtitle">Utility Hub</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
+        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
+        <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
+        <a class="nav-link" data-navlink href="contact.html">📲 Contact</a>
+        <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
+        <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
+        <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
+      </nav>
+
+      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
+        <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+
+    <div class="mobile-panel" data-mobile-panel>
+      <div class="container">
+        <div class="mobile-links" aria-label="Mobile Navigation">
+          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
+          <a class="nav-link nav-cta" data-navlink href="projects.html">🧩 Projects</a>
+          <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
+          <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
+          <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
+          <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
+          <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="utility-hero">
+      <div class="container">
+        <div class="section-head" style="align-items: center;">
+          <div>
+            <h2 class="h2" style="font-size: 22px;">🧰 Universal File &amp; Data Powerhouse</h2>
+            <p class="small-note">Client-side only • No data leaves your browser • Neon Glassmorphism</p>
+          </div>
+        </div>
+
+        <div class="utility-grid" role="list" aria-label="Utility modules">
+
+
+
+          <!-- Kartu A: Multi-Format Converter -->
+          <section class="util-card" role="listitem" aria-label="Multi-Format Converter">
+            <div class="inner">
+
+              <h3 class="util-title">A) Multi-Format Converter</h3>
+              <p class="util-sub">Drag &amp; drop file, pilih sumber &amp; target, lalu konversi langsung di browser.</p>
+
+
+
+
+              <div
+                id="convDrop"
+                class="dropzone"
+                tabindex="0"
+                role="button"
+                aria-label="Dropzone converter"
+              >
+                <div style="display:flex; justify-content: space-between; gap: 12px; align-items:center; flex-wrap:wrap;">
+                  <div>
+                    <strong>Drop file di sini</strong>
+                    <div class="hint" style="margin-top:6px;">Supported: PDF, DOCX, XLSX (yang bisa diproses client-side sesuai library)</div>
+                  </div>
+                  <label class="glow-btn" style="padding:10px 12px;">⬆️ Pilih File
+                    <input id="convInput" type="file" style="display:none" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-row two">
+                <div>
+                  <label class="small-note" for="convSource">Sumber</label>
+                  <select id="convSource" aria-label="Sumber">
+
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word (Docx)</option>
+                    <option value="xlsx" selected>Excel (Xlsx)</option>
+                    <option value="txt">TXT</option>
+                    <option value="json">JSON</option>
+                    <option value="csv">CSV</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="small-note" for="convTarget">Target</label>
+                  <select id="convTarget">
+                    <option value="txt" selected>TXT</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word (Docx)</option>
+                    <option value="xlsx">Excel (Xlsx)</option>
+                    <option value="json">JSON</option>
+                    <option value="csv">CSV</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row two" style="margin-top: 12px;">
+                <button id="btnConvert" class="glow-btn" type="button">⚡ Convert</button>
+                <button id="btnDownload" class="glow-btn" type="button" disabled>⬇️ Download</button>
+              </div>
+
+              <div class="prebox">
+                <div id="convStatus" class="hint" style="margin-top:0;">Siap. Silakan upload file.</div>
+                <div id="convPreview" class="mono" style="margin-top:10px; white-space:pre-wrap; word-break:break-word;"></div>
+              </div>
+
+              <div class="hint">Catatan: Konversi silang penuh sangat bervariasi tergantung struktur dokumen. Modul ini mengutamakan jalur yang bisa diproses secara realistis via CDN library.</div>
+            </div>
+          </section>
+
+          <!-- Kartu B: Sanitizer & Deduplicator -->
+          <section class="util-card" role="listitem" aria-label="Data Sanitizer & Deduplicator">
+            <div class="inner">
+              <h3 class="util-title">B) Data Sanitizer &amp; Deduplicator</h3>
+              <p class="util-sub">Drag &amp; drop TXT/JSON/CSV. Jalankan dedupe/merge/clean white spaces.</p>
+
+              <div
+                id="sanDrop"
+                class="dropzone"
+                tabindex="0"
+                role="button"
+                aria-label="Dropzone sanitizer"
+              >
+                <div style="display:flex; justify-content: space-between; gap: 12px; align-items:center; flex-wrap:wrap;">
+                  <div>
+                    <strong>Drop file(s) di sini</strong>
+                    <div class="hint" style="margin-top:6px;">TXT, JSON, CSV • Multiple file supported</div>
+                  </div>
+                  <label class="glow-btn" style="padding:10px 12px;">⬆️ Pilih Files
+                    <input id="sanInput" type="file" style="display:none" multiple />
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-row two">
+                <button id="btnDedupe" class="glow-btn" type="button">🧹 Remove Duplicates</button>
+                <button id="btnMerge" class="glow-btn" type="button">🧬 Merge Files</button>
+              </div>
+
+              <div class="field-row two" style="grid-template-columns: 1fr;">
+                <button id="btnCleanWS" class="glow-btn" type="button">✨ Clean White Spaces</button>
+              </div>
+
+              <div class="stats" aria-label="Statistics">
+                <div class="stat">
+                  <div class="k">Data Awal</div>
+                  <div class="v" id="stInitial">0</div>
+                </div>
+                <div class="stat">
+                  <div class="k">Data Terhapus</div>
+                  <div class="v" id="stDeleted">0</div>
+                </div>
+                <div class="stat">
+                  <div class="k">Data Hasil</div>
+                  <div class="v" id="stResult">0</div>
+                </div>
+              </div>
+
+              <div class="field-row two" style="margin-top: 12px;">
+                <button id="btnSanitizeToConverter" class="glow-btn" type="button">📤 Send to Converter</button>
+                <button id="btnDownloadSan" class="glow-btn" type="button" disabled>⬇️ Download Output</button>
+              </div>
+
+              <div class="prebox">
+                <div class="hint" style="margin-top:0;">Preview / Output</div>
+                <textarea id="sanOutput" class="mono" placeholder="Drop file untuk memulai..." disabled></textarea>
+              </div>
+            </div>
+          </section>
+
+          <!-- Kartu C: OCR Extractor -->
+          <section class="util-card" role="listitem" aria-label="OCR Data Extractor">
+
+            <div class="inner">
+
+              <h3 class="util-title">C) OCR Data Extractor</h3>
+              <p class="util-sub">Upload gambar/screenshot, ekstrak teks dengan Tesseract.js, lalu kirim ke Sanitizer.</p>
+
+              <div style="display:flex; gap: 12px; flex-wrap:wrap; align-items:center; margin-top: 12px;">
+                <label class="glow-btn" style="padding:10px 12px;">⬆️ Upload Gambar
+                  <input id="ocrInput" type="file" accept="image/*" style="display:none" />
+                </label>
+                <button id="btnOCR" class="glow-btn" type="button" disabled>🧠 Extract OCR</button>
+              </div>
+
+              <div class="prebox">
+                <div class="hint" style="margin-top:0;">Status</div>
+                <div id="ocrStatus" class="mono">Belum ada file.</div>
+                <div class="hint">Hasil OCR akan tampil di bawah.</div>
+                <textarea id="ocrOutput" class="mono" placeholder="Output OCR akan muncul di sini..." disabled></textarea>
+              </div>
+
+              <div class="field-row two" style="margin-top: 12px;">
+                <button id="btnSendToSan" class="glow-btn" type="button" disabled>📤 Send to Sanitizer</button>
+              </div>
+
+              <div class="hint">Privacy: OCR diproses di perangkatmu. Tidak ada upload ke server.</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer utility-footer">
+    <div class="container">
+      <div class="badge-privacy">🔒 Privacy-First: Processed locally in your browser. No data uploaded.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <script>
+    // =============================
+    // Shared helpers
+    // =============================
+    const $ = (id) => document.getElementById(id);
+
+
+    function setStatus(el, text) {
+      if (!el) return;
+      el.textContent = text;
+    }
+
+    function downloadBlob(filename, mime, blobData) {
+      const blob = blobData instanceof Blob ? blobData : new Blob([blobData], { type: mime || 'application/octet-stream' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1200);
+    }
+
+    // =============================
+    // Kartu B: Sanitizer
+    // =============================
+    let sanFilesText = [];
+    let sanMerged = "";
+
+    const sanOutput = $("sanOutput");
+    const stInitial = $("stInitial");
+    const stDeleted = $("stDeleted");
+    const stResult = $("stResult");
+    const btnDownloadSan = $("btnDownloadSan");
+
+    function updateStats(initial, deleted, result) {
+      stInitial.textContent = String(initial);
+      stDeleted.textContent = String(deleted);
+      stResult.textContent = String(result);
+    }
+
+    function normalizeWS(s) {
+      return (s || "")
+        .replace(/\r\n/g, "\n")
+        .replace(/\t/g, " ")
+        .replace(/\u00A0/g, " ")
+        .replace(/[ ]{2,}/g, " ")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+    }
+
+    function splitToItems(text) {
+      // For TXT: each non-empty line is an item
+      // For JSON/CSV: treat lines too; dedupe by exact line after cleanup
+      const t = text || "";
+      return t
+        .split("\n")
+        .map(x => normalizeWS(x))
+        .filter(Boolean);
+    }
+
+    async function readTextFiles(files) {
+      const arr = Array.from(files || []);
+      const texts = [];
+      for (const f of arr) {
+        const buf = await f.arrayBuffer();
+        // try utf-8 decoding
+        const dec = new TextDecoder('utf-8');
+        let txt = '';
+        try {
+          txt = dec.decode(buf);
+        } catch (e) {
+          txt = '';
+        }
+        texts.push({ name: f.name, text: txt });
+      }
+      return texts;
+    }
+
+    async function loadSanFiles(files) {
+      sanFilesText = [];
+      sanMerged = "";
+      btnDownloadSan.disabled = true;
+
+      const loaded = await readTextFiles(files);
+      sanFilesText = loaded;
+
+      const initialLen = loaded.reduce((acc, it) => acc + splitToItems(it.text).length, 0);
+      updateStats(initialLen, 0, initialLen);
+
+      // Merge immediately for preview
+      sanMerged = loaded.map(x => x.text).join("\n\n");
+      sanOutput.disabled = false;
+      sanOutput.value = sanMerged;
+    }
+
+    function ensureMerged() {
+      if (!sanMerged) {
+        sanMerged = sanOutput?.value || "";
+      }
+    }
+
+    $("sanInput").addEventListener('change', async (e) => {
+      const files = e.target.files;
+      if (!files || !files.length) return;
+      await loadSanFiles(files);
+    });
+
+    function bindDropzone(dropEl, inputEl, onFiles) {
+      dropEl.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropEl.classList.add('dragover');
+      });
+      dropEl.addEventListener('dragleave', () => {
+        dropEl.classList.remove('dragover');
+      });
+      dropEl.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        dropEl.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (!files || !files.length) return;
+        if (inputEl) inputEl.files = files;
+        await onFiles(files);
+      });
+    }
+
+    bindDropzone($("sanDrop"), $("sanInput"), loadSanFiles);
+
+    $("btnMerge").addEventListener('click', () => {
+      ensureMerged();
+      if (!sanFilesText.length) {
+        setStatus($("convStatus"), 'Sanitizer: belum ada file.');
+        return;
+      }
+      sanMerged = sanFilesText.map(x => x.text).join("\n\n");
+      sanOutput.disabled = false;
+      sanOutput.value = sanMerged;
+      const items = splitToItems(sanMerged);
+      updateStats(items.length, 0, items.length);
+      btnDownloadSan.disabled = false;
+    });
+
+    $("btnCleanWS").addEventListener('click', () => {
+      ensureMerged();
+      const cleaned = normalizeWS(sanMerged);
+      const beforeItems = splitToItems(sanMerged);
+      const afterItems = splitToItems(cleaned);
+      sanMerged = cleaned;
+      sanOutput.value = sanMerged;
+      updateStats(beforeItems.length, Math.max(0, beforeItems.length - afterItems.length), afterItems.length);
+      btnDownloadSan.disabled = false;
+    });
+
+    $("btnDedupe").addEventListener('click', () => {
+      ensureMerged();
+      const items = splitToItems(sanMerged);
+      const uniq = [];
+      const seen = new Set();
+      for (const it of items) {
+        // stable key
+        const key = it;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        uniq.push(it);
+      }
+      const before = items.length;
+      const after = uniq.length;
+      sanMerged = uniq.join("\n");
+      sanOutput.value = sanMerged;
+      updateStats(before, Math.max(0, before - after), after);
+      btnDownloadSan.disabled = false;
+    });
+
+    $("btnDownloadSan").addEventListener('click', () => {
+      const out = sanOutput.value || "";
+      const mime = 'text/plain;charset=utf-8';
+      downloadBlob('sanitizer-output.txt', mime, out);
+    });
+
+    // Send to Converter (as TXT payload)
+    $("btnSanitizeToConverter").addEventListener('click', () => {
+      // Fungsionalitas sederhana: arahkan output sanitizernya ke converter preview area.
+      const targetMode = $("convTarget");
+      $("convStatus").textContent = 'Sanitizer output siap untuk dikonversi.';
+      $("convPreview").textContent = (sanOutput.value || '').slice(0, 12000);
+      // set converter input logically: treat as TXT content blob
+      window.__utility_hub_text_payload = sanOutput.value || '';
+      $("btnDownload").disabled = true;
+      // default source to txt
+      $("convSource").value = 'txt';
+      // keep target selection as user-chosen
+      setStatus($("convStatus"), 'Sanitizer output loaded into converter payload. Klik Convert di Converter card.');
+    });
+
+    // =============================
+    // Kartu C: OCR
+    // =============================
+    const ocrInput = $("ocrInput");
+    const btnOCR = $("btnOCR");
+    const ocrOutput = $("ocrOutput");
+    const ocrStatus = $("ocrStatus");
+    const btnSendToSan = $("btnSendToSan");
+
+    let __ocrText = '';
+
+    ocrInput.addEventListener('change', () => {
+      btnOCR.disabled = !ocrInput.files?.length;
+      ocrOutput.disabled = false;
+      __ocrText = '';
+      setStatus(ocrStatus, 'File siap. Klik Extract OCR.');
+      ocrOutput.value = '';
+      btnSendToSan.disabled = true;
+    });
+
+    btnOCR.addEventListener('click', async () => {
+      if (!ocrInput.files || !ocrInput.files[0]) return;
+      const file = ocrInput.files[0];
+
+      try {
+        btnOCR.disabled = true;
+        setStatus(ocrStatus, '⏳ OCR running locally...');
+        ocrOutput.value = '';
+        btnSendToSan.disabled = true;
+
+        const { data } = await Tesseract.recognize(file, 'eng+ind', {
+          logger: (m) => {
+            if (m.status) {
+              setStatus(ocrStatus, `OCR: ${m.status} ${m.progress ? Math.round(m.progress*100)+'%' : ''}`.trim());
+            }
+          }
+        });
+
+        __ocrText = (data?.text || '').trim();
+        ocrOutput.value = __ocrText || '';
+        setStatus(ocrStatus, '✅ OCR done. Siap dikirim ke Sanitizer.');
+        btnSendToSan.disabled = false;
+      } catch (e) {
+        console.error(e);
+        setStatus(ocrStatus, '❌ OCR gagal. Coba gambar lain.');
+        btnSendToSan.disabled = true;
+      } finally {
+        btnOCR.disabled = false;
+      }
+    });
+
+    btnSendToSan.addEventListener('click', async () => {
+      if (!__ocrText.trim()) return;
+      // Load OCR text into sanitizer output and set merged payload.
+      sanOutput.disabled = false;
+      sanOutput.value = __ocrText;
+      sanMerged = __ocrText;
+      const items = splitToItems(sanMerged);
+      updateStats(items.length, 0, items.length);
+      btnDownloadSan.disabled = false;
+      setStatus($("sanOutput"), __ocrText);
+      setStatus(ocrStatus, '📤 OCR text sent to Sanitizer. Kamu bisa Dedupe/Clean/Merge.');
+
+      // Also set converter payload if needed
+      window.__utility_hub_text_payload = __ocrText;
+    });
+
+    // =============================
+    // Kartu A: Converter
+    // =============================
+    const convDrop = $("convDrop");
+    const convInput = $("convInput");
+    const btnConvert = $("btnConvert");
+    const btnDownload = $("btnDownload");
+    const convStatus = $("convStatus");
+    const convPreview = $("convPreview");
+
+    let __convFile = null;
+    let __convResultBlob = null;
+    let __convResultName = 'converted';
+
+    function resetConvUI() {
+      __convResultBlob = null;
+      btnDownload.disabled = true;
+      __convResultName = 'converted';
+      convPreview.textContent = '';
+    }
+
+    function onConvFiles(files) {
+      if (!files || !files.length) return;
+      __convFile = files[0];
+      resetConvUI();
+      convStatus.textContent = `Loaded: ${__convFile.name}`;
+      convPreview.textContent = '';
+      btnDownload.disabled = true;
+    }
+
+    convInput.addEventListener('change', (e) => {
+      onConvFiles(e.target.files);
+    });
+
+    bindDropzone(convDrop, convInput, (files) => {
+      onConvFiles(files);
+    });
+
+    function asArrayBuffer(file) {
+      return file.arrayBuffer();
+    }
+
+    async function pdfToText(arrayBuffer) {
+      // Using pdf.js
+      const pdfjsLib = window['pdfjs-dist/build/pdf'] || window['pdfjs-dist'] || window['pdfjs'];
+      // If global export not found, try direct global
+      const pdf = await window['pdfjsLib']?.getDocument({ data: arrayBuffer })?.promise;
+      if (!pdf) {
+        // fallback
+        const loadingTask = pdfjsLib ? pdfjsLib.getDocument({ data: arrayBuffer }) : null;
+        if (!loadingTask) throw new Error('pdfjs not available');
+        const doc = await loadingTask.promise;
+        return extractDocText(doc);
+      }
+      return extractDocText(pdf);
+    }
+
+    async function extractDocText(pdfDoc) {
+      let full = [];
+      const numPages = pdfDoc.numPages;
+      for (let i = 1; i <= numPages; i++) {
+        const page = await pdfDoc.getPage(i);
+        const textContent = await page.getTextContent();
+        const strings = textContent.items.map(it => it.str);
+        full.push(strings.join(' '));
+      }
+      return full.join('\n\n');
+    }
+
+    async function docxToText(arrayBuffer) {
+      const doc = window.docx || window['docx'];
+      if (!doc || !doc.Packer) {
+        // docx library in UMD provides docx object; however we use extraction workaround:
+        // Try parsing using docx prebuilt (PizZip + Docxtemplater is heavier). For simplicity, use a minimal approach:
+        // We'll fallback to raw zip text by extracting docx XML and pulling paragraph text.
+      }
+
+      // Simple extraction using PizZip
+      const zip = new PizZip(arrayBuffer);
+      const xml = zip.file('word/document.xml');
+      if (!xml) throw new Error('DOCX XML not found');
+      const text = xml.async('string');
+      const xmlStr = await text;
+
+      // Extract <w:t> nodes and join
+      const matches = [...xmlStr.matchAll(/<w:t[^>]*>([\s\S]*?)<\/w:t>/g)].map(m => m[1]);
+      const decoded = matches.map(s => s.replace(/&amp;/g,'&').replace(/</g,'<').replace(/>/g,'>').replace(/"/g,'"'));
+      return decoded.join('').replace(/\s+/g, ' ').trim();
+    }
+
+    function csvFromJson(rows) {
+      if (!Array.isArray(rows)) rows = [rows];
+      const header = Array.from(new Set(rows.flatMap(r => Object.keys(r || {}))));
+      const escape = (v) => {
+        const s = (v === null || v === undefined) ? '' : String(v);
+        if (/[",\n]/.test(s)) return '"' + s.replace(/"/g,'""') + '"';
+        return s;
+      };
+      const lines = [header.map(escape).join(',')];
+      for (const r of rows) {
+        lines.push(header.map(k => escape(r?.[k])).join(','));
+      }
+      return lines.join('\n');
+    }
+
+    function jsonFromText(text) {
+      // Try JSON parse, else create {text:...}
+      try {
+        const obj = JSON.parse(text);
+        return obj;
+      } catch {
+        return { text };
+      }
+    }
+
+    async function xlsxToJson(arrayBuffer) {
+      const wb = XLSX.read(arrayBuffer, { type: 'array' });
+      const firstSheet = wb.SheetNames[0];
+      const sheet = wb.Sheets[firstSheet];
+      const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+      return rows;
+    }
+
+    async function convert(payload) {
+      const source = $("convSource").value;
+      const target = $("convTarget").value;
+
+      const file = __convFile;
+      const payloadText = (payload && typeof payload === 'string') ? payload : null;
+
+      if (!file && payloadText === null) {
+        throw new Error('Tidak ada input file atau payload.');
+      }
+
+      __convResultBlob = null;
+      btnDownload.disabled = true;
+      convStatus.textContent = '⏳ Converting...';
+      convPreview.textContent = '';
+
+      // 1) get normalized data
+      let normalizedText = null;
+      let normalizedRows = null; // JSON array rows from XLSX
+
+      if (payloadText !== null && source === 'txt') {
+        normalizedText = payloadText;
+      } else if (file) {
+        const arrayBuffer = await asArrayBuffer(file);
+
+        if (source === 'pdf') {
+          normalizedText = await pdfjsExtract(arrayBuffer);
+        } else if (source === 'docx') {
+          normalizedText = await docxToText(arrayBuffer);
+        } else if (source === 'xlsx') {
+          normalizedRows = await xlsxToJson(arrayBuffer);
+        } else if (source === 'txt') {
+          normalizedText = new TextDecoder('utf-8').decode(arrayBuffer);
+        } else if (source === 'json') {
+          normalizedText = new TextDecoder('utf-8').decode(arrayBuffer);
+        } else if (source === 'csv') {
+          normalizedText = new TextDecoder('utf-8').decode(arrayBuffer);
+        }
+      }
+
+      // 2) convert to target
+      if (target === 'txt') {
+        const outText = normalizedRows
+          ? JSON.stringify(normalizedRows, null, 2)
+          : (normalizedText ?? '');
+        __convResultBlob = new Blob([outText], { type: 'text/plain;charset=utf-8' });
+        __convResultName = 'converted.txt';
+        convPreview.textContent = outText.slice(0, 12000);
+        btnDownload.disabled = false;
+        return;
+      }
+
+      if (target === 'json') {
+        const obj = normalizedRows ? normalizedRows : jsonFromText(normalizedText || '');
+        const outText = JSON.stringify(obj, null, 2);
+        __convResultBlob = new Blob([outText], { type: 'application/json;charset=utf-8' });
+        __convResultName = 'converted.json';
+        convPreview.textContent = outText.slice(0, 12000);
+        btnDownload.disabled = false;
+        return;
+      }
+
+      if (target === 'csv') {
+        // If rows: straightforward; else try to parse JSON string
+        let rows = normalizedRows;
+        if (!rows) {
+          const obj = jsonFromText(normalizedText || '');
+          rows = Array.isArray(obj) ? obj : [obj];
+        }
+        const outCsv = csvFromJson(rows);
+        __convResultBlob = new Blob([outCsv], { type: 'text/csv;charset=utf-8' });
+        __convResultName = 'converted.csv';
+        convPreview.textContent = outCsv.slice(0, 12000);
+        btnDownload.disabled = false;
+        return;
+      }
+
+      if (target === 'xlsx') {
+        // Create a workbook from normalizedRows or from parsed JSON
+        let rows = normalizedRows;
+        if (!rows) {
+          const obj = jsonFromText(normalizedText || '');
+          rows = Array.isArray(obj) ? obj : [obj];
+        }
+        const ws = XLSX.utils.json_to_sheet(rows || []);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const out = XLSX.write(wb, { type: 'array', bookType: 'xlsx' });
+        __convResultBlob = new Blob([out], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        __convResultName = 'converted.xlsx';
+        convPreview.textContent = '✅ XLSX generated locally.';
+        btnDownload.disabled = false;
+        return;
+      }
+
+      if (target === 'pdf') {
+        // Minimal: create a new PDF with text using pdf-lib.
+        // For richer layout, add more logic later.
+        const { PDFDocument, StandardFonts } = window.PDFLib;
+        const doc = await PDFDocument.create();
+        const page = doc.addPage([595.28, 841.89]);
+        const font = await doc.embedFont(StandardFonts.Helvetica);
+
+        const text = (normalizedRows ? JSON.stringify(normalizedRows, null, 2) : (normalizedText || '')).slice(0, 15000);
+        const fontSize = 10;
+        const { width: pageWidth, height: pageHeight } = page.getSize();
+        let y = pageHeight - 52;
+
+        const lines = text.split(/\r?\n/);
+        for (const line of lines) {
+          if (y < 52) {
+            // new page
+            const p = doc.addPage([595.28, 841.89]);
+            y = pageHeight - 52;
+            // reassign page reference
+            // eslint-disable-next-line no-unused-vars
+            page = p;
+          }
+          page.drawText(line.slice(0, 120), { x: 52, y, size: fontSize, font, color: undefined });
+          y -= 12;
+        }
+
+        const bytes = await doc.save();
+        __convResultBlob = new Blob([bytes], { type: 'application/pdf' });
+        __convResultName = 'converted.pdf';
+        convPreview.textContent = '✅ PDF generated locally.';
+        btnDownload.disabled = false;
+        return;
+      }
+
+      if (target === 'docx') {
+        // Client-side docx creation is complex; provide best-effort: download as TXT but inform.
+        // (Implementing full DOCX generation needs docx library usage.)
+        const text = normalizedRows
+          ? JSON.stringify(normalizedRows, null, 2)
+          : (normalizedText || '');
+        // Best effort: output as .txt to respect privacy; label as .docx not safe.
+        __convResultBlob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        __convResultName = 'converted_as_txt.docx.txt';
+        convPreview.textContent = '⚠️ DOCX generation belum lengkap. Saat ini menghasilkan TXT payload.';
+        btnDownload.disabled = false;
+        return;
+      }
+
+      throw new Error('Target tidak didukung saat ini.');
+    }
+
+    async function pdfjsExtract(arrayBuffer) {
+      const pdfjsLib = window['pdfjs-dist/build/pdf'];
+      // Setup worker is not necessary for min builds if same origin; but set anyway.
+      try {
+        if (pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.377/build/pdf.worker.min.js';
+        }
+      } catch {}
+
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+      const pdf = await loadingTask.promise;
+      let full = [];
+      const numPages = pdf.numPages;
+      for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const strings = textContent.items.map(it => it.str);
+        full.push(strings.join(' '));
+      }
+      return full.join('\n\n');
+    }
+
+    btnConvert.addEventListener('click', async () => {
+      try {
+        resetConvUI();
+        const payload = window.__utility_hub_text_payload ?? null;
+        if (!__convFile && payload === null) {
+          convStatus.textContent = '⚠️ Upload file dulu.';
+          return;
+        }
+
+        await convert(payload);
+        convStatus.textContent = '✅ Convert selesai.';
+      } catch (e) {
+        console.error(e);
+        convStatus.textContent = '❌ Convert gagal: ' + (e?.message || String(e));
+      }
+    });
+
+    btnDownload.addEventListener('click', () => {
+      if (!__convResultBlob) return;
+      downloadBlob(__convResultName, __convResultBlob.type, __convResultBlob);
+    });
+
+    // set initial date in all pages
+    // (reuse style.js inline patterns)
+    document.addEventListener('DOMContentLoaded', () => {
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
+
