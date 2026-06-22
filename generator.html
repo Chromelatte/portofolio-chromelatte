@@ -5,192 +5,222 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Generator • chromelatte ✨</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- QR library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html" aria-label="Home">
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#22D3EE"/>
-              <stop offset="1" stop-color="#7C3AED"/>
-            </linearGradient>
-          </defs>
-          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
-          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
-          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
-        </svg>
-
-        <span class="brand-text">
-          <span class="title">chromelatte</span>
-          <span class="subtitle">Generator</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-        <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-        <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-        <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-        <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
-        <a class="nav-link" data-navlink href="utility-hub.html">🧰 Utility Hub</a>
-      </nav>
-
-      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
-        <span class="burger-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
+  <div class="container">
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+      <div class="logo">
+        <i class="fas fa-code"></i> chromelatte
+      </div>
+      <button class="hamburger" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
       </button>
-    </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
+        <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
+        <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
+        <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram-plane"></i> Owner
+        </a>
+      </nav>
+    </header>
 
-    <div class="mobile-panel" data-mobile-panel>
-      <div class="container">
-        <div class="mobile-links" aria-label="Mobile Navigation">
-          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-          <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-          <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-          <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-          <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
-          <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2">✨ Generator Hub (Dark Minimal Neon)</h2>
-          <p class="small-note">Pilih tool: Neon Name • Secure Password • QR Code</p>
-        </div>
-
-        <!-- Tabs -->
-        <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
-          <div class="callout" style="padding: 12px 12px 14px;">
-            <div class="tabs" role="tablist" aria-label="Generator tools">
-              <button class="tab-btn active" type="button" data-tab="neon" role="tab" aria-selected="true">💫 Neon Name</button>
-              <button class="tab-btn" type="button" data-tab="password" role="tab" aria-selected="false">🔐 Secure Password</button>
-              <button class="tab-btn" type="button" data-tab="qr" role="tab" aria-selected="false">📱 QR Code</button>
-            </div>
+    <!-- ===== MAIN ===== -->
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2"><i class="fas fa-magic" style="color:var(--cyan);"></i> Generator Hub</h2>
+            <p class="small-note">Pilih tool: Neon Name • Secure Password • QR Code</p>
           </div>
 
-          <!-- Neon Name Tool -->
-          <div class="tool-panel" data-panel="neon">
-            <div class="card" style="margin:0;">
-              <div class="card-inner">
-                <div class="section-head" style="margin-bottom: 12px;">
-                  <h3 class="card-title">💫 Neon Name Generator</h3>
-                  <p class="small-note">Live preview + download image</p>
-                </div>
-
-                <label class="small-note" for="neonText">Masukkan teks</label>
-                <input id="neonText" type="text" placeholder="misal: chromelatte" maxlength="28"
-                  style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.92); outline:none;" />
-
-                <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; align-items:center;">
-                  <div style="flex:1; min-width: 220px;">
-                    <label class="small-note" for="neonColor">Pilih warna neon</label>
-                    <input id="neonColor" type="color" value="#22d3ee" style="width:100%; height:44px; padding:0; border:none; background:transparent;" />
-                  </div>
-
-                  <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
-                    <button id="downloadNeon" class="btn btn-primary" type="button" disabled>⬇️ Download as Image</button>
-                  </div>
-                </div>
-
-                <div class="callout" style="margin-top:14px; padding: 18px; border-color: rgba(34,211,238,0.25);">
-                  <div class="small-note" style="margin-bottom: 10px;">Preview (glow)</div>
-                  <div id="neonPreview" class="neon-preview" aria-live="polite">chromelatte</div>
-                </div>
+          <!-- Tabs -->
+          <div class="grid" style="grid-template-columns: 1fr; gap: 16px;">
+            <div class="callout" style="padding: 12px 12px 14px;">
+              <div class="tabs" role="tablist" aria-label="Generator tools">
+                <button class="tab-btn active" type="button" data-tab="neon" role="tab" aria-selected="true">
+                  <i class="fas fa-pen-fancy"></i> Neon Name
+                </button>
+                <button class="tab-btn" type="button" data-tab="password" role="tab" aria-selected="false">
+                  <i class="fas fa-lock"></i> Secure Password
+                </button>
+                <button class="tab-btn" type="button" data-tab="qr" role="tab" aria-selected="false">
+                  <i class="fas fa-qrcode"></i> QR Code
+                </button>
               </div>
             </div>
-          </div>
 
-          <!-- Password Tool -->
-          <div class="tool-panel" data-panel="password" hidden>
-            <div class="card" style="margin:0;">
-              <div class="card-inner">
-                <div class="section-head" style="margin-bottom: 12px;">
-                  <h3 class="card-title">🔐 Secure Password Generator</h3>
-                  <p class="small-note">Random kuat + bisa disesuaikan</p>
-                </div>
-
-                <div style="display:grid; grid-template-columns: 1fr; gap: 10px;">
-                  <div>
-                    <label class="small-note" for="pwLength">Panjang password: <span id="pwLenVal">16</span></label>
-                    <input id="pwLength" type="range" min="8" max="64" value="16" step="1" style="width:100%; margin-top:6px;" />
+            <!-- ========================================= -->
+            <!-- Panel 1: NEON NAME -->
+            <!-- ========================================= -->
+            <div class="tool-panel" data-panel="neon">
+              <div class="generator-card">
+                <div class="card-inner">
+                  <div class="section-head" style="margin-bottom: 12px;">
+                    <h3 class="card-title"><i class="fas fa-pen-fancy" style="color:var(--cyan);"></i> Neon Name Generator</h3>
+                    <p class="small-note">Live preview + download image</p>
                   </div>
 
-                  <div style="display:flex; flex-wrap:wrap; gap: 12px;">
-                    <label class="badge" style="cursor:pointer; user-select:none;">
-                      <input id="pwNumbers" type="checkbox" checked style="accent-color: var(--neon2); margin-right:8px;" />
-                      123 (angka)
-                    </label>
-                    <label class="badge" style="cursor:pointer; user-select:none;">
-                      <input id="pwSymbols" type="checkbox" checked style="accent-color: var(--neon); margin-right:8px;" />
-                      #@$! (simbol)
-                    </label>
-                  </div>
+                  <label class="small-note" for="neonText">Masukkan teks</label>
+                  <input id="neonText" class="generator-input" type="text" placeholder="misal: chromelatte" maxlength="28" />
 
-                  <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <button id="pwGenerate" class="btn btn-primary" type="button">⚙️ Generate</button>
-                    <button id="pwCopy" class="btn" type="button" disabled>📋 Copy</button>
-                  </div>
-                </div>
-
-                <div class="callout" style="margin-top:14px; padding: 16px;">
-                  <div class="small-note" style="margin-bottom: 10px;">Hasil password</div>
-                  <pre id="pwOutput" style="margin:0; white-space:pre-wrap; word-break:break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12.5px; color: rgba(255,255,255,0.92);">—</pre>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- QR Tool -->
-          <div class="tool-panel" data-panel="qr" hidden>
-            <div class="card" style="margin:0;">
-              <div class="card-inner">
-                <div class="section-head" style="margin-bottom: 12px;">
-                  <h3 class="card-title">📱 QR Code Generator</h3>
-                  <p class="small-note">Auto generate saat teks/link berubah</p>
-                </div>
-
-                <label class="small-note" for="qrText">Teks / Link</label>
-                <input id="qrText" type="text" placeholder="misal: https://t.me/chromelatte" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.92); outline:none;" />
-
-                <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; align-items:flex-start;">
-                  <div style="flex:1; min-width:220px;">
-                    <div class="small-note" style="margin-bottom: 10px;">Hasil QR</div>
-                    <div id="qrWrap" style="display:flex; align-items:center; justify-content:flex-start; padding: 10px; border-radius: 16px; border: 1px solid rgba(34,211,238,0.22); background: rgba(0,0,0,0.18); box-shadow: 0 0 0 1px rgba(124,58,237,0.14); overflow:auto;">
-                      <div id="qrCode" aria-label="Generated QR code" style="width: 220px; height: 220px;"></div>
+                  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; align-items:center;">
+                    <div style="flex:1; min-width: 200px;">
+                      <label class="small-note" for="neonColor">Pilih warna neon</label>
+                      <input id="neonColor" class="color-picker" type="color" value="#22d3ee" />
                     </div>
-                    <p class="small-note" style="margin-top: 10px;">Kalau kosong, QR akan menampilkan placeholder ✨</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+                      <button id="downloadNeon" class="btn btn-primary" type="button" disabled>
+                        <i class="fas fa-download"></i> Download Image
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="callout" style="margin-top:14px; padding: 18px; border-color: rgba(34,211,238,0.2); background: rgba(0,0,0,0.2);">
+                    <div class="small-note" style="margin-bottom: 10px;"><i class="fas fa-eye"></i> Preview (glow)</div>
+                    <div id="neonPreview" class="neon-preview glow-pulse">chromelatte</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- Panel 2: PASSWORD -->
+            <!-- ========================================= -->
+            <div class="tool-panel" data-panel="password" hidden>
+              <div class="generator-card">
+                <div class="card-inner">
+                  <div class="section-head" style="margin-bottom: 12px;">
+                    <h3 class="card-title"><i class="fas fa-lock" style="color:var(--purple);"></i> Secure Password Generator</h3>
+                    <p class="small-note">Random kuat + bisa disesuaikan</p>
+                  </div>
+
+                  <div style="display:grid; grid-template-columns: 1fr; gap: 10px;">
+                    <div>
+                      <label class="small-note" for="pwLength">
+                        <i class="fas fa-arrows-alt-h"></i> Panjang: <span id="pwLenVal">16</span>
+                      </label>
+                      <input id="pwLength" type="range" min="8" max="64" value="16" step="1" style="width:100%; margin-top:6px; accent-color:var(--cyan);" />
+                    </div>
+
+                    <div style="display:flex; flex-wrap:wrap; gap: 12px;">
+                      <label class="badge" style="cursor:pointer; user-select:none; background:rgba(34,211,238,0.06); border-color:rgba(34,211,238,0.15);">
+                        <input id="pwNumbers" type="checkbox" checked style="accent-color: var(--cyan); margin-right:8px;" />
+                        123 (angka)
+                      </label>
+                      <label class="badge" style="cursor:pointer; user-select:none; background:rgba(124,58,237,0.06); border-color:rgba(124,58,237,0.15);">
+                        <input id="pwSymbols" type="checkbox" checked style="accent-color: var(--purple); margin-right:8px;" />
+                        #@$! (simbol)
+                      </label>
+                    </div>
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                      <button id="pwGenerate" class="btn btn-primary" type="button">
+                        <i class="fas fa-sync"></i> Generate
+                      </button>
+                      <button id="pwCopy" class="btn" type="button" disabled>
+                        <i class="fas fa-copy"></i> Copy
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="callout" style="margin-top:14px; padding: 16px; background:rgba(0,0,0,0.15);">
+                    <div class="small-note" style="margin-bottom: 10px;"><i class="fas fa-key"></i> Hasil password</div>
+                    <pre id="pwOutput" class="password-output">—</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- Panel 3: QR CODE -->
+            <!-- ========================================= -->
+            <div class="tool-panel" data-panel="qr" hidden>
+              <div class="generator-card">
+                <div class="card-inner">
+                  <div class="section-head" style="margin-bottom: 12px;">
+                    <h3 class="card-title"><i class="fas fa-qrcode" style="color:var(--cyan);"></i> QR Code Generator</h3>
+                    <p class="small-note">Auto generate saat teks/link berubah</p>
+                  </div>
+
+                  <label class="small-note" for="qrText"><i class="fas fa-link"></i> Teks / Link</label>
+                  <input id="qrText" class="generator-input" type="text" placeholder="misal: https://t.me/chromelatte" />
+
+                  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; align-items:flex-start;">
+                    <div style="flex:1; min-width:220px;">
+                      <div class="small-note" style="margin-bottom: 10px;"><i class="fas fa-image"></i> Hasil QR</div>
+                      <div class="qr-wrapper">
+                        <div id="qrCode" aria-label="Generated QR code" style="width: 220px; height: 220px;"></div>
+                      </div>
+                      <p class="small-note" style="margin-top: 10px;">
+                        <i class="fas fa-info-circle"></i> Default: <a href="https://t.me/ksduit" target="_blank" style="color:var(--cyan);">t.me/ksduit</a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <span>
+        © 2026 <strong>chromelatte</strong> — dibangun dengan
+        <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon
+      </span>
+      <div class="socials">
+        <a href="https://t.me/chromelatte" target="_blank" aria-label="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://t.me/ksduit" target="_blank" aria-label="Trust">
+          <i class="fas fa-shield-alt"></i>
+        </a>
       </div>
-    </section>
-  </main>
+    </footer>
+  </div>
 
-  <footer class="footer">
-    <div class="line container">© <span id="year"></span> chromelatte • Generator ✨</div>
-  </footer>
-
+  <!-- ===== SCRIPT MOBILE TOGGLE ===== -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function() {
+      const toggle = document.getElementById('menuToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          links.classList.toggle('open');
+          const icon = toggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+          }
+        });
+        links.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            links.classList.remove('open');
+            const icon = toggle.querySelector('i');
+            if (icon) {
+              icon.classList.add('fa-bars');
+              icon.classList.remove('fa-times');
+            }
+          });
+        });
+      }
+    })();
   </script>
 
-  <!-- QR library (light CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-
+  <!-- ===== GENERATOR FUNCTIONS ===== -->
   <script>
     // ---------- Tabs logic ----------
     (function () {
@@ -215,7 +245,6 @@
         btn.addEventListener('click', () => {
           const name = btn.getAttribute('data-tab');
           if (name) setActive(name);
-          // On mobile: scroll slightly to keep focus
           try { document.querySelector('.tool-panel:not([hidden])')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
         });
       });
@@ -235,10 +264,11 @@
         neonPreview.textContent = text;
         neonPreview.style.color = color;
         neonPreview.style.textShadow = `
-          0 0 6px ${color},
-          0 0 14px ${color},
-          0 0 28px ${color},
-          0 0 44px rgba(124, 58, 237, 0.35)
+          0 0 10px ${color},
+          0 0 20px ${color},
+          0 0 40px ${color},
+          0 0 80px ${color}44,
+          0 0 120px rgba(124, 58, 237, 0.2)
         `;
         downloadNeon.disabled = !text.trim();
       }
@@ -248,7 +278,6 @@
       updatePreview();
 
       downloadNeon.addEventListener('click', () => {
-        // Render to canvas using a nice neon-like style.
         const text = (neonText.value || '').trim() || 'chromelatte';
         const color = neonColor.value || '#22d3ee';
 
@@ -267,26 +296,27 @@
         canvas.width = w;
         canvas.height = h;
 
-        // Background transparent for premium look
         ctx.clearRect(0, 0, w, h);
 
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-        // glow layers
-        ctx.fillStyle = color;
+        // Glow layers
         ctx.shadowColor = color;
-        ctx.shadowBlur = 18;
+        ctx.shadowBlur = 20;
+        ctx.fillStyle = color;
         ctx.fillText(text, w / 2, h / 2);
 
-        ctx.shadowBlur = 28;
+        ctx.shadowBlur = 40;
         ctx.fillText(text, w / 2, h / 2);
 
-        ctx.shadowBlur = 44;
-        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.shadowBlur = 60;
         ctx.fillText(text, w / 2, h / 2);
 
-        // restore
+        ctx.shadowBlur = 80;
+        ctx.fillStyle = 'rgba(255,255,255,0.05)';
+        ctx.fillText(text, w / 2, h / 2);
+
         ctx.shadowBlur = 0;
         ctx.fillStyle = color;
         ctx.fillText(text, w / 2, h / 2);
@@ -340,7 +370,6 @@
         if (includeNumbers) pool += numbers;
         if (includeSymbols) pool += symbols;
 
-        // Ensure at least one category present if enabled
         let result = '';
         if (includeNumbers) result += randFrom(numbers);
         if (includeSymbols) result += randFrom(symbols);
@@ -349,13 +378,10 @@
           result += randFrom(pool);
         }
 
-        // shuffle for better distribution
-        result = result
-          .split('')
-          .sort(() => Math.random() - 0.5)
-          .join('');
+        result = result.split('').sort(() => Math.random() - 0.5).join('');
 
         pwOutput.textContent = result;
+        pwOutput.classList.add('filled');
         pwCopy.disabled = false;
         pwCopy.textContent = '📋 Copy';
       });
@@ -368,7 +394,6 @@
           await navigator.clipboard.writeText(text);
           pwCopy.textContent = '✅ Copied!';
         } catch (e) {
-          // fallback select
           const range = document.createRange();
           range.selectNodeContents(pwOutput);
           const sel = window.getSelection();
@@ -395,7 +420,6 @@
 
       function render() {
         const value = (qrText.value || '').trim() || 'https://t.me/ksduit';
-        // Clear old
         qrCode.innerHTML = '';
         qr = new QRCode(qrCode, {
           text: value,
@@ -407,7 +431,6 @@
       }
 
       qrText.addEventListener('input', () => {
-        // Debounce-ish
         clearTimeout(render._t);
         render._t = setTimeout(render, 180);
       });
@@ -415,7 +438,5 @@
       render();
     })();
   </script>
-
 </body>
 </html>
-

@@ -5,197 +5,209 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trust • chromelatte 🛡️</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html" aria-label="Home">
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#22D3EE"/>
-              <stop offset="1" stop-color="#7C3AED"/>
-            </linearGradient>
-          </defs>
-          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
-          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
-          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
-        </svg>
-
-        <span class="brand-text">
-          <span class="title">chromelatte</span>
-          <span class="subtitle">Trust</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-        <a class="nav-link nav-cta" data-navlink href="trust.html">🛡️ Trust</a>
-        <a class="nav-link" data-navlink href="contact.html">📲 Contact</a>
-        <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-          <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
-          <a class="nav-link" data-navlink href="utility-hub.html">🧰 Utility Hub</a>
-      </nav>
-
-      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
-        <span class="burger-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
+  <div class="container">
+    <!-- ===== NAVBAR (sama dengan index & projects) ===== -->
+    <header class="navbar">
+      <div class="logo">
+        <i class="fas fa-code"></i> chromelatte
+      </div>
+      <button class="hamburger" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
       </button>
-    </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
+        <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
+        <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
+        <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram-plane"></i> Owner
+        </a>
+      </nav>
+    </header>
 
-    <div class="mobile-panel" data-mobile-panel>
-      <div class="container">
-        <div class="mobile-links" aria-label="Mobile Navigation">
-          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-          <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-          <a class="nav-link nav-cta" data-navlink href="trust.html">🛡️ Trust</a>
-          <a class="nav-link" data-navlink href="contact.html">📲 Contact</a>
-          <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-          <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2">🛡️ Wall of Trust</h2>
+            <p class="small-note">Premium vibes, transparan, dan langsung ke inti 😌✨</p>
+          </div>
+
+          <!-- Callout Bukti Transparansi -->
+          <div class="callout">
+            <h3 class="card-title">🔗 Chat Telegram (Bukti Transparansi)</h3>
+            <p class="card-desc">Kamu bisa cek bukti pembayaran &amp; kredibilitas di sini:</p>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="https://t.me/ksduit" target="_blank" rel="noreferrer">
+                <i class="fab fa-telegram-plane"></i> t.me/ksduit
+              </a>
+              <a class="btn" href="contact.html"><i class="fas fa-user-headset"></i> Tanya Admin</a>
+            </div>
+          </div>
+
+          <!-- Testimonial Wall -->
+          <div class="trust-wall">
+            <div class="section-head" style="margin-top:16px; margin-bottom:10px;">
+              <h2 class="h2" style="font-size:18px;">💬 Testimoni</h2>
+              <p class="small-note">Tap card untuk efek neon ✨</p>
+            </div>
+
+            <div class="trust-grid" role="list" aria-label="Wall of Trust testimonials">
+              <!-- Testimoni 1 -->
+              <div class="testimonial neon-purple" role="listitem" tabindex="0">
+                <div class="row">
+                  <div class="who">
+                    <div class="avatar" aria-hidden="true"></div>
+                    <div>
+                      <div class="name">@neonbuyer</div>
+                      <div class="meta">✅ Pembayaran cepat</div>
+                    </div>
+                  </div>
+                  <div class="meta">⭐ 5/5</div>
+                </div>
+                <p>Prosesnya rapi, responsnya cepat, dan transparan banget. Neon glow-nya juga bikin makin yakin 😎✨</p>
+              </div>
+
+              <!-- Testimoni 2 -->
+              <div class="testimonial" role="listitem" tabindex="0">
+                <div class="row">
+                  <div class="who">
+                    <div class="avatar" aria-hidden="true"></div>
+                    <div>
+                      <div class="name">@smartkoneksi</div>
+                      <div class="meta">🛡️ Aman & terpercaya</div>
+                    </div>
+                  </div>
+                  <div class="meta">⭐ 5/5</div>
+                </div>
+                <p>Update sesuai transaksi. Saya suka karena semuanya jelas dan nggak bikin khawatir. Premium banget 🔥</p>
+              </div>
+
+              <!-- Testimoni 3 -->
+              <div class="testimonial neon-purple" role="listitem" tabindex="0">
+                <div class="row">
+                  <div class="who">
+                    <div class="avatar" aria-hidden="true"></div>
+                    <div>
+                      <div class="name">@vibeliker</div>
+                      <div class="meta">⚡ Admin responsif</div>
+                    </div>
+                  </div>
+                  <div class="meta">⭐ 5/5</div>
+                </div>
+                <p>Kurang dari sehari udah dibantu. Komunikasinya santai tapi tetap profesional. Gas terus ya! 🚀</p>
+              </div>
+
+              <!-- Testimoni 4 -->
+              <div class="testimonial" role="listitem" tabindex="0">
+                <div class="row">
+                  <div class="who">
+                    <div class="avatar" aria-hidden="true"></div>
+                    <div>
+                      <div class="name">@darkminimal</div>
+                      <div class="meta">🎯 Sesuai kebutuhan</div>
+                    </div>
+                  </div>
+                  <div class="meta">⭐ 5/5</div>
+                </div>
+                <p>Hasilnya sesuai request. Admin bantu arahkan sampai benar-benar beres. Mantap, aku suka style-nya 💜</p>
+              </div>
+
+              <!-- Testimoni 5 -->
+              <div class="testimonial neon-purple" role="listitem" tabindex="0">
+                <div class="row">
+                  <div class="who">
+                    <div class="avatar" aria-hidden="true"></div>
+                    <div>
+                      <div class="name">@neonready</div>
+                      <div class="meta">📌 Detail jelas</div>
+                    </div>
+                  </div>
+                  <div class="meta">⭐ 5/5</div>
+                </div>
+                <p>Penjelasannya detail. Jadi aku nggak bingung. Teksturnya “wall of trust” banget 😌✨</p>
+              </div>
+
+              <!-- Testimoni 6 -->
+              <div class="testimonial" role="listitem" tabindex="0">
+                <div class="row">
+                  <div class="who">
+                    <div class="avatar" aria-hidden="true"></div>
+                    <div>
+                      <div class="name">@fastlane</div>
+                      <div class="meta">💳 Transaksi lancar</div>
+                    </div>
+                  </div>
+                  <div class="meta">⭐ 5/5</div>
+                </div>
+                <p>Lancar, aman, dan bukti transparansinya ada. Tinggal chat ke Telegram buat update terbaru 😄🛡️</p>
+              </div>
+            </div>
+
+            <!-- CTA dengan efek pulse -->
+            <div class="vibe-cta">
+              <a class="vibe-btn" href="https://t.me/ksduit" target="_blank" rel="noreferrer">
+                🌊 Leave Your Vibe (Chat & Lihat Bukti)
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
         </div>
+      </section>
+    </main>
 
+    <!-- ===== FOOTER (sama) ===== -->
+    <footer class="footer">
+      <span>
+        © 2026 <strong>chromelatte</strong> — dibangun dengan
+        <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon
+      </span>
+      <div class="socials">
+        <a href="https://t.me/chromelatte" target="_blank" aria-label="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://t.me/ksduit" target="_blank" aria-label="Trust">
+          <i class="fas fa-shield-alt"></i>
+        </a>
       </div>
-    </div>
-  </header>
+    </footer>
+  </div>
 
-
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2">🛡️ Wall of Trust (Neon Minimal)</h2>
-          <p class="small-note">Premium vibes, transparan, dan langsung ke inti 😌✨</p>
-        </div>
-
-        <!-- Keep Telegram link: https://t.me/ksduit -->
-        <div class="callout">
-          <h3 class="card-title">🔗 Chat Telegram (Bukti Transparansi)</h3>
-          <p class="card-desc">Kamu bisa cek bukti pembayaran & kredibilitas di sini:</p>
-          <div class="card-actions">
-            <a class="btn btn-primary" href="https://t.me/ksduit" target="_blank" rel="noreferrer">💳 https://t.me/ksduit</a>
-            <a class="btn" href="contact.html">📲 Tanya Admin</a>
-          </div>
-        </div>
-
-        <div class="trust-wall">
-          <div class="section-head" style="margin-top:16px; margin-bottom:10px;">
-            <h2 class="h2" style="font-size:18px;">💬 Testimoni (Wall)</h2>
-            <p class="small-note">Tap card untuk efek neon ✨</p>
-          </div>
-
-
-          <!-- 6 testimonial cards: 1 column on mobile, 2x3 / 3x2 on larger screens -->
-          <div class="trust-grid" role="list" aria-label="Wall of Trust testimonials">
-            <div class="testimonial neon-purple" role="listitem" tabindex="0" aria-label="Testimoni 1">
-              <div class="row">
-                <div class="who">
-                  <div class="avatar" aria-hidden="true"></div>
-                  <div>
-                    <div class="name">@neonbuyer</div>
-                    <div class="meta">✅ Pembayaran cepat</div>
-                  </div>
-                </div>
-                <div class="meta">⭐ 5/5</div>
-              </div>
-              <p>Prosesnya rapi, responsnya cepat, dan transparan banget. Neon glow-nya juga bikin makin yakin 😎✨</p>
-            </div>
-
-            <div class="testimonial" role="listitem" tabindex="0" aria-label="Testimoni 2">
-              <div class="row">
-                <div class="who">
-                  <div class="avatar" aria-hidden="true"></div>
-                  <div>
-                    <div class="name">@smartkoneksi</div>
-                    <div class="meta">🛡️ Aman & terpercaya</div>
-                  </div>
-                </div>
-                <div class="meta">⭐ 5/5</div>
-              </div>
-              <p>Update sesuai transaksi. Saya suka karena semuanya jelas dan nggak bikin khawatir. Premium banget 🔥</p>
-            </div>
-
-            <div class="testimonial neon-purple" role="listitem" tabindex="0" aria-label="Testimoni 3">
-              <div class="row">
-                <div class="who">
-                  <div class="avatar" aria-hidden="true"></div>
-                  <div>
-                    <div class="name">@vibeliker</div>
-                    <div class="meta">⚡ Admin responsif</div>
-                  </div>
-                </div>
-                <div class="meta">⭐ 5/5</div>
-              </div>
-              <p>Kurang dari sehari udah dibantu. Komunikasinya santai tapi tetap profesional. Gas terus ya! 🚀</p>
-            </div>
-
-            <div class="testimonial" role="listitem" tabindex="0" aria-label="Testimoni 4">
-              <div class="row">
-                <div class="who">
-                  <div class="avatar" aria-hidden="true"></div>
-                  <div>
-                    <div class="name">@darkminimal</div>
-                    <div class="meta">🎯 Sesuai kebutuhan</div>
-                  </div>
-                </div>
-                <div class="meta">⭐ 5/5</div>
-              </div>
-              <p>Hasilnya sesuai request. Admin bantu arahkan sampai benar-benar beres. Mantap, aku suka style-nya 💜</p>
-            </div>
-
-            <div class="testimonial neon-purple" role="listitem" tabindex="0" aria-label="Testimoni 5">
-              <div class="row">
-                <div class="who">
-                  <div class="avatar" aria-hidden="true"></div>
-                  <div>
-                    <div class="name">@neonready</div>
-                    <div class="meta">📌 Detail jelas</div>
-                  </div>
-                </div>
-                <div class="meta">⭐ 5/5</div>
-              </div>
-              <p>Penjelasannya detail. Jadi aku nggak bingung. Teksturnya “wall of trust” banget 😌✨</p>
-            </div>
-
-            <div class="testimonial" role="listitem" tabindex="0" aria-label="Testimoni 6">
-              <div class="row">
-                <div class="who">
-                  <div class="avatar" aria-hidden="true"></div>
-                  <div>
-                    <div class="name">@fastlane</div>
-                    <div class="meta">💳 Transaksi lancar</div>
-                  </div>
-                </div>
-                <div class="meta">⭐ 5/5</div>
-              </div>
-              <p>Lancar, aman, dan bukti transparansinya ada. Tinggal chat ke Telegram buat update terbaru 😄🛡️</p>
-            </div>
-          </div>
-
-          <!-- Leave Your Vibe CTA (pulse) linking to https://t.me/ksduit -->
-          <div class="vibe-cta">
-            <a class="vibe-btn" href="https://t.me/ksduit" target="_blank" rel="noreferrer" aria-label="Leave Your Vibe to https://t.me/ksduit">
-              🌊 Leave Your Vibe (Chat & Lihat Bukti)
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-
-  <footer class="footer">
-    <div class="line container">© <span id="year"></span> chromelatte • Trust 🛡️✨</div>
-  </footer>
-
+  <!-- ===== SCRIPT MOBILE TOGGLE ===== -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function() {
+      const toggle = document.getElementById('menuToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          links.classList.toggle('open');
+          const icon = toggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+          }
+        });
+        links.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            links.classList.remove('open');
+            const icon = toggle.querySelector('i');
+            if (icon) {
+              icon.classList.add('fa-bars');
+              icon.classList.remove('fa-times');
+            }
+          });
+        });
+      }
+    })();
   </script>
-  <script src="js/main.js"></script>
 </body>
 </html>
-

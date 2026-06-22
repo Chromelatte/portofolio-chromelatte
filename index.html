@@ -3,183 +3,191 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chromelatte Portfolio 🚀✨</title>
+  <title>chromelatte — Portfolio & Bot Hub</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html" aria-label="Home">
-        <!-- Inline SVG logo (responsive, no external assets) -->
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#22D3EE"/>
-              <stop offset="1" stop-color="#7C3AED"/>
-            </linearGradient>
-          </defs>
-          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
-          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
-          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
-        </svg>
-
-        <span class="brand-text">
-          <span class="title">chromelatte</span>
-          <span class="subtitle">Chromelatte Bussines</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-        <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-        <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-        <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-        <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-        <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
-        <a class="nav-link" data-navlink href="utility-hub.html">🧰 Utility Hub</a>
-      </nav>
-
-
-      <!-- Hamburger for mobile -->
-      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
-        <span class="burger-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
-      </button>
-    </div>
-
-    <div class="mobile-panel" data-mobile-panel>
-      <div class="container">
-        <div class="mobile-links" aria-label="Mobile Navigation">
-          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-          <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-          <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-          <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-          <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-          <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-          <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
-
-        </div>
+  <div class="container">
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+      <div class="logo">
+        <i class="fas fa-code"></i> chromelatte
       </div>
-    </div>
-  </header>
+      <button class="hamburger" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
+        <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
+        <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
+        <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram-plane"></i> Owner
+        </a>
+      </nav>
+    </header>
 
-
-
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="kicker">✨🚀 Tentang saya</div>
-          <h1 class="title">
-            Bangun sesuatu yang <span class="neon-text">cepat</span>, rapi, dan memikat 😎
-          </h1>
-          <p class="lead">
-           Selamat datang di lab kecil gue. Gue chromelatte, dan di sini gue merangkum
-            apa yang gue bangun selama ini. Gue lebih suka desain yang dark & minimal biar fokus
-             tetap di fungsi. Feel free to explore bot-bot gue, dan kalau ada yang bikin lo tertarik,
-              klik aja tombolnya—kita ngobrol di Telegram.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="projects.html">🧩 Lihat Projects</a>
-            <a class="btn btn-ghost" href="contact.html">📲 Chat Telegram</a>
+    <!-- ===== PROFIL (seperti Facebook) ===== -->
+    <section class="profile-section">
+      <div class="cover"></div>
+      <div class="profile-card">
+        <div class="profile-top">
+          <div class="avatar">
+            <img src="profile/profile.jpg" alt="Foto profil chromelatte" />
           </div>
-
-          <div style="margin-top:14px; color: rgba(255,255,255,0.62); font-weight:700;">
-          🚀 Crafting with Passion • 📱 Perfect on Mobile & Desktop • ⚡ Built for Speed
-          </div>
-        </div>
-
-        <aside class="hero-card" aria-label="Highlights">
-          <div class="badges">
-            <span class="badge good"><i></i> Responsive</span>
-            <span class="badge"><i></i> Neon Minimal</span>
-            <span class="badge warn"><i></i> Mobile-first</span>
-          </div>
-
-          <h2 class="h2" style="margin-top:6px;">🔥 Quick Preview</h2>
-          <p class="card-desc" style="margin-top:8px;">
-          Pilih halaman, nikmati vibe neon, dan cek apa yang lagi gue bangun.
-           Semua proyek di sini dirancang supaya enak diakses dari mana saja—cepat,
-            ringan, dan pastinya ramah buat jempol lo.
-          </p>
-
-          <div class="thumb">
-            <div class="thumb-illus">
-              <!-- Decorative SVG illustration -->
-              <svg viewBox="0 0 600 260" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Neon illustration">
-                <defs>
-                  <linearGradient id="ng" x1="0" y1="0" x2="600" y2="260" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#22D3EE" stop-opacity="0.9"/>
-                    <stop offset="1" stop-color="#7C3AED" stop-opacity="0.9"/>
-                  </linearGradient>
-                  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="6" result="b" />
-                    <feMerge>
-                      <feMergeNode in="b"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                </defs>
-                <rect x="12" y="12" width="576" height="236" rx="22" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/>
-                <path d="M60 170 C120 90, 210 210, 275 140 S420 70, 520 120" stroke="url(#ng)" stroke-width="10" fill="none" filter="url(#glow)"/>
-                <path d="M70 190 C130 120, 230 230, 290 160 S430 110, 540 150" stroke="#22D3EE" stroke-opacity="0.35" stroke-width="6" fill="none"/>
-                <g opacity="0.95">
-                  <circle cx="140" cy="140" r="8" fill="#22D3EE"/>
-                  <circle cx="285" cy="150" r="10" fill="#7C3AED"/>
-                  <circle cx="450" cy="115" r="9" fill="#22D3EE"/>
-                </g>
-                <text x="48" y="78" fill="rgba(255,255,255,0.82)" font-size="18" font-family="ui-sans-serif, system-ui" font-weight="800">chromelatte</text>
-                <text x="48" y="104" fill="rgba(255,255,255,0.58)" font-size="13" font-family="ui-sans-serif, system-ui" font-weight="700">Dark Minimal • Neon Accent</text>
-                <text x="48" y="225" fill="rgba(255,255,255,0.70)" font-size="13" font-family="ui-sans-serif, system-ui" font-weight="700">Scroll • Tap • Shine ✨</text>
-              </svg>
+          <div class="profile-meta">
+            <h1>
+              chromelatte
+              <small><i class="fas fa-check-circle" style="color:var(--cyan);"></i> verified</small>
+            </h1>
+            <div class="username">
+              <i class="fab fa-telegram-plane"></i> @chromelatte
+            </div>
+            <div class="bio">
+              <i class="fas fa-quote-left"></i>
+              Builder of bots, lover of clean code &amp; neon vibes. 
+              Saya membangun solusi digital yang cepat, aman, dan stylish. 
+              Di sini tempat semua proyek saya berkumpul — dari bot Telegram 
+              hingga alat utility serbaguna.
+            </div>
+            <div class="profile-actions">
+              <a href="https://t.me/chromelatte" target="_blank" class="btn btn-primary">
+                <i class="fab fa-telegram-plane"></i> Chat Owner
+              </a>
+              <a href="#bots" class="btn btn-outline">
+                <i class="fas fa-robot"></i> Lihat Bot
+              </a>
             </div>
           </div>
-
-          <div class="small-note" style="margin-top:12px;">
-            Tip: Coba buka di HP untuk lihat hamburger menu 😄
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2"> 🧠 Mengapa Portofolio Ini?</h2>
-          <p class="small-note">Ringkas, fokus, dan nyaman di semua perangkat.</p>
         </div>
-
-        <div class="grid" style="grid-template-columns: 1fr;">
-          <div class="callout">
-            <ul class="list">
-              <li>Navigasi Sat-set: Mudah pindah halaman, baik dari laptop maupun HP..</li>
-              <li>Desain Modern: Fokus pada konten, minim gangguan visual..</li>
-              <li>Aksesibilitas Tinggi: Web yang ringan dan cepat dibuka kapan saja.</li>
-              <li>Ramah di Semua Layar: Tampilan rapi, baik di layar besar
-                 maupun genggaman tangan lo. ✅</li>
-            </ul>
-          </div>
+        <!-- Trust / Payment Badge -->
+        <div class="trust-badge">
+          <i class="fas fa-handshake"></i>
+          <span>
+            <strong>Transparansi penuh</strong> — Bukti pembayaran &amp; testimoni di
+            <a href="https://t.me/ksduit" target="_blank">t.me/ksduit</a>
+            <i class="fas fa-external-link-alt" style="font-size:12px;margin-left:4px;"></i>
+          </span>
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="line container">
-      © <span id="year"></span> chromelatte • Made with 💜 & Neon ✨
+    <!-- ===== BOT GRID ===== -->
+    <h2 class="section-title" id="bots">
+      <i class="fas fa-robot"></i> Bot Projects
+    </h2>
+    <div class="bot-grid">
+      <!-- @ArcekBot -->
+      <div class="bot-card">
+        <div class="bot-icon"><i class="fas fa-bell"></i></div>
+        <h3>@ArcekBot</h3>
+        <p class="bot-desc">Bot alarm &amp; notifikasi real‑time.</p>
+        <a href="https://t.me/ArcekBot" target="_blank" class="bot-link">
+          <i class="fab fa-telegram-plane"></i> Buka Bot
+        </a>
+        <div class="badge-tag">🔔 Alarm</div>
+      </div>
+      <!-- @SplitesBot -->
+      <div class="bot-card">
+        <div class="bot-icon"><i class="fas fa-cut"></i></div>
+        <h3>@SplitesBot</h3>
+        <p class="bot-desc">Pecah &amp; gabung file dengan mudah.</p>
+        <a href="https://t.me/SplitesBot" target="_blank" class="bot-link">
+          <i class="fab fa-telegram-plane"></i> Buka Bot
+        </a>
+        <div class="badge-tag">📂 File</div>
+      </div>
+      <!-- @ArlatteBot (CV) -->
+      <div class="bot-card">
+        <div class="bot-icon"><i class="fas fa-file-alt"></i></div>
+        <h3>@ArlatteBot</h3>
+        <p class="bot-desc">Bot CV &amp; file nokos (serbaguna).</p>
+        <a href="https://t.me/ArlatteBot" target="_blank" class="bot-link">
+          <i class="fab fa-telegram-plane"></i> Buka Bot
+        </a>
+        <div class="badge-tag">📄 CV</div>
+      </div>
+      <!-- @FixGenBot -->
+      <div class="bot-card">
+        <div class="bot-icon"><i class="fas fa-bug"></i></div>
+        <h3>@FixGenBot</h3>
+        <p class="bot-desc">Bot fix &amp; generate red‑text.</p>
+        <a href="https://t.me/FixGenBot" target="_blank" class="bot-link">
+          <i class="fab fa-telegram-plane"></i> Buka Bot
+        </a>
+        <div class="badge-tag">🔧 Fix</div>
+      </div>
+      <!-- @ArvaulthMusicBot -->
+      <div class="bot-card">
+        <div class="bot-icon"><i class="fas fa-music"></i></div>
+        <h3>@ArvaulthMusicBot</h3>
+        <p class="bot-desc">Musik dengan nuansa neon &amp; playlist.</p>
+        <a href="https://t.me/ArvaulthMusicBot" target="_blank" class="bot-link">
+          <i class="fab fa-telegram-plane"></i> Buka Bot
+        </a>
+        <div class="badge-tag">🎵 Musik</div>
+      </div>
+      <!-- @userkromBot (Panel Nokos) -->
+      <div class="bot-card">
+        <div class="bot-icon"><i class="fas fa-tools"></i></div>
+        <h3>@userkromBot</h3>
+        <p class="bot-desc">Panel nokos &amp; utility bot.</p>
+        <a href="https://t.me/userkromBot" target="_blank" class="bot-link">
+          <i class="fab fa-telegram-plane"></i> Buka Bot
+        </a>
+        <div class="badge-tag">⚙️ Utility</div>
+      </div>
     </div>
-  </footer>
 
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <span>
+        © 2026 <strong>chromelatte</strong> — dibangun dengan
+        <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon
+      </span>
+      <div class="socials">
+        <a href="https://t.me/chromelatte" target="_blank" aria-label="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://t.me/ksduit" target="_blank" aria-label="Trust">
+          <i class="fas fa-shield-alt"></i>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== SCRIPT MOBILE TOGGLE ===== -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function() {
+      const toggle = document.getElementById('menuToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          links.classList.toggle('open');
+          const icon = toggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+          }
+        });
+        links.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            links.classList.remove('open');
+            const icon = toggle.querySelector('i');
+            if (icon) {
+              icon.classList.add('fa-bars');
+              icon.classList.remove('fa-times');
+            }
+          });
+        });
+      }
+    })();
   </script>
-  <script src="js/main.js"></script>
 </body>
 </html>
-

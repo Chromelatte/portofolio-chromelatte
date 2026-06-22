@@ -3,176 +3,131 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Utility Hub • Universal File & Data Powerhouse</title>
+  <title>Utility Hub • chromelatte 🧰</title>
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Cyberpunk fonts (optional via system fallback; no external font required) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <!-- SheetJS (Excel) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.20.3/dist/xlsx.full.min.js"></script>
-
   <!-- pdf-lib (PDF ops) -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-
-  <!-- pdf.js text extraction for PDF->TXT -->
+  <!-- pdf.js text extraction -->
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.377/build/pdf.min.js"></script>
-
-  <!-- docx (extract DOCX) -->
+  <!-- docx -->
   <script src="https://cdn.jsdelivr.net/npm/docx@9.5.1/build/index.umd.js"></script>
-
-  <!-- pizzip (used by docx; kept explicit for compatibility) -->
+  <!-- pizzip -->
   <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.6/dist/pizzip.min.js"></script>
-
-  <!-- Tesseract.js (OCR) -->
+  <!-- Tesseract.js OCR -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
   <style>
-    /* Page-specific override: Utility Hub */
-    body {
-      background: linear-gradient(180deg, #050810 0%, #101015 100%);
-      color: rgba(255,255,255,0.92);
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Subtle grain/noise to avoid flat look */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.08;
-      background-image:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.20), transparent 45%),
-        radial-gradient(circle at 80% 30%, rgba(34,211,238,0.16), transparent 42%),
-        radial-gradient(circle at 50% 70%, rgba(124,58,237,0.14), transparent 45%),
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 3px);
-      mix-blend-mode: overlay;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.05;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-      background-size: 140px 140px;
-      mix-blend-mode: overlay;
-    }
-
-    .container, .utility-hero, .util-card, main, footer {
-      position: relative;
-      z-index: 1;
-    }
-
-
+    /* ===== UTILITY HUB SPECIFIC ===== */
     .utility-hero {
-      padding: 26px 0 14px;
+      padding: 10px 0 14px;
     }
 
     .utility-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 18px;
       align-items: start;
     }
 
     @media (min-width: 768px) {
-      .utility-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .utility-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (min-width: 1024px) {
-      .utility-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .utility-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-.util-card {
-      border-radius: 18px;
-      border: 1px solid rgba(0, 240, 255, 0.28);
-      background: rgba(255,255,255,0.04);
-      box-shadow:
-        0 0 0 1px rgba(255, 0, 255, 0.10),
-        0 14px 50px rgba(0,0,0,0.65);
-      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.45));
+    .util-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow: hidden;
-      position: relative;
+      box-shadow: var(--shadow);
+      transition: 0.25s ease;
     }
 
-    .util-card::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      background:
-        radial-gradient(500px circle at 20% 0%, rgba(0, 240, 255, 0.25), transparent 55%),
-        radial-gradient(420px circle at 90% 10%, rgba(255, 0, 255, 0.18), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      opacity: 0.65;
-      pointer-events: none;
+    .util-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     }
-
-    .util-card > * { position: relative; }
 
     .util-card .inner {
-      padding: 16px;
+      padding: 18px;
     }
 
     .util-title {
       margin: 0;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 800;
       letter-spacing: 0.2px;
-      font-weight: 950;
+      color: var(--text);
+    }
+
+    .util-title i {
+      color: var(--cyan);
+      margin-right: 8px;
     }
 
     .util-sub {
       margin: 6px 0 0;
-      color: rgba(255,255,255,0.65);
+      color: var(--muted);
       font-size: 13px;
     }
 
     .glow-btn {
-      border-radius: 14px;
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      background: rgba(0, 240, 255, 0.10);
-      box-shadow:
-        0 0 0 6px rgba(0, 240, 255, 0.05),
-        0 0 28px rgba(0, 240, 255, 0.10);
-      color: rgba(255,255,255,0.96);
-      font-weight: 900;
-      padding: 12px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      background: rgba(34, 211, 238, 0.06);
+      color: var(--text);
+      font-weight: 700;
+      padding: 10px 16px;
       cursor: pointer;
-      transition: 160ms ease;
+      transition: 0.2s ease;
       user-select: none;
+      font-size: 14px;
     }
 
     .glow-btn:hover {
+      background: rgba(34, 211, 238, 0.12);
+      border-color: var(--cyan);
       transform: translateY(-1px);
-      border-color: rgba(255, 0, 255, 0.32);
-      box-shadow:
-        0 0 0 6px rgba(255, 0, 255, 0.07),
-        0 0 34px rgba(255, 0, 255, 0.14);
     }
 
-    .util-card:hover {
-      border-color: rgba(0, 240, 255, 0.48);
-      box-shadow:
-        0 0 0 1px rgba(255, 0, 255, 0.18),
-        0 18px 70px rgba(0,0,0,0.78);
+    .glow-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .dropzone {
-      border-radius: 16px;
-      border: 1px dashed rgba(0, 240, 255, 0.45);
-      background: rgba(0, 240, 255, 0.06);
-      padding: 14px;
-      margin-top: 12px;
+      border-radius: 12px;
+      border: 2px dashed rgba(34, 211, 238, 0.25);
+      background: rgba(34, 211, 238, 0.04);
+      padding: 16px;
+      margin-top: 10px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .dropzone:hover {
+      border-color: rgba(34, 211, 238, 0.4);
+      background: rgba(34, 211, 238, 0.07);
     }
 
     .dropzone.dragover {
-      background: rgba(255, 0, 255, 0.08);
-      border-color: rgba(255, 0, 255, 0.55);
+      border-color: var(--purple);
+      background: rgba(124, 58, 237, 0.08);
     }
 
     .field-row {
@@ -187,75 +142,70 @@
     }
 
     @media (min-width: 560px) {
-      .field-row.two { grid-template-columns: 1fr 1fr; }
+      .field-row.two {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
-    /* Force consistent dark dropdown styling (avoid OS/browser default) */
-    select {
+    select,
+    input[type="text"],
+    textarea {
       width: 100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background-color: #1a1a1a !important;
-      background-image: none !important;
-      color: #ffffff !important;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
       outline: none;
-      -webkit-appearance: none;
-      appearance: none;
-      -moz-appearance: none;
-      font-weight: 800;
-      letter-spacing: 0.1px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.2s;
     }
 
-    select:focus {
-      border-color: rgba(0, 240, 255, 0.65);
-      box-shadow: 0 0 0 6px rgba(0, 240, 255, 0.06);
+    select:focus,
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.06);
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
     }
 
     select option {
-      background-color: #1a1a1a !important;
-      color: #ffffff !important;
-      font-weight: 800;
+      background: var(--bg);
+      color: var(--text);
     }
-
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: #1a1a1a;
-      color: #ffffff;
-      outline: none;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    select:focus, input[type="text"]:focus, textarea:focus {
-      border-color: rgba(0, 240, 255, 0.55);
-      box-shadow: 0 0 0 6px rgba(0, 240, 255, 0.06);
-    }
-
 
     textarea {
-      min-height: 160px;
+      min-height: 120px;
       resize: vertical;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-      font-size: 12.5px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
     }
 
     .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-      font-size: 12.5px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
     }
 
     .prebox {
       margin-top: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(0, 240, 255, 0.22);
-      background: rgba(0,0,0,0.35);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.2);
       padding: 12px;
       overflow: auto;
-      max-height: 46vh;
+      max-height: 40vh;
+    }
+
+    .prebox .hint {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
     }
 
     .stats {
@@ -266,301 +216,333 @@
     }
 
     .stat {
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
       padding: 10px;
+      text-align: center;
     }
 
     .stat .k {
-      color: rgba(255,255,255,0.65);
-      font-weight: 800;
-      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .stat .v {
-      margin-top: 6px;
-      font-weight: 1000;
-      font-size: 15px;
+      margin-top: 4px;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--cyan);
     }
 
     .badge-privacy {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 0, 255, 0.28);
-      background: rgba(255, 0, 255, 0.08);
-      box-shadow: 0 0 0 6px rgba(255, 0, 255, 0.04);
-      color: rgba(255,255,255,0.90);
-      font-weight: 900;
+      padding: 12px 20px;
+      border-radius: 40px;
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      background: rgba(124, 58, 237, 0.06);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
     }
 
-    footer.utility-footer {
-      padding-bottom: 48px;
+    .badge-privacy i {
+      color: var(--purple);
+      font-size: 18px;
     }
 
-.hint {
-      color: rgba(255,255,255,0.65);
+    .hint {
+      color: var(--muted);
       font-size: 13px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
-    /* Ensure all labels above inputs are clearly readable */
+    .util-footer {
+      padding: 20px 0 30px;
+      text-align: center;
+    }
+
     label {
-      color: #cccccc;
-      font-weight: 800;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+      display: block;
+      margin-bottom: 4px;
     }
 
-    label.small-note {
-      color: #cccccc;
+    .field-row.two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .field-row.two {
+        grid-template-columns: 1fr;
+      }
+      .stats {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+      }
+      .stat .v {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html" aria-label="Home">
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#22D3EE"/>
-              <stop offset="1" stop-color="#7C3AED"/>
-            </linearGradient>
-          </defs>
-          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
-          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
-          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
-        </svg>
-        <span class="brand-text">
-          <span class="title">chromelatte</span>
-          <span class="subtitle">Utility Hub</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-        <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-        <a class="nav-link" data-navlink href="contact.html">📲 Contact</a>
-        <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-        <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
-        <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-      </nav>
-
-      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
-        <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
-      </button>
-    </div>
-
-    <div class="mobile-panel" data-mobile-panel>
-      <div class="container">
-        <div class="mobile-links" aria-label="Mobile Navigation">
-          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-          <a class="nav-link nav-cta" data-navlink href="projects.html">🧩 Projects</a>
-          <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-          <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-          <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-          <a class="nav-link" data-navlink href="generator.html">✨ Generator</a>
-          <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-        </div>
+  <div class="container">
+    <!-- ===== NAVBAR (sama dengan halaman lain) ===== -->
+    <header class="navbar">
+      <div class="logo">
+        <i class="fas fa-code"></i> chromelatte
       </div>
-    </div>
-  </header>
+      <button class="hamburger" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
+        <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
+        <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
+        <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram-plane"></i> Owner
+        </a>
+      </nav>
+    </header>
 
-  <main>
-    <section class="utility-hero">
-      <div class="container">
-        <div class="section-head" style="align-items: center;">
-          <div>
-            <h2 class="h2" style="font-size: 22px;">🧰 Universal File &amp; Data Powerhouse</h2>
-            <p class="small-note">Client-side only • No data leaves your browser • Neon Glassmorphism</p>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+      <section class="utility-hero">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2"><i class="fas fa-tools" style="color:var(--cyan);"></i> Universal File &amp; Data Powerhouse</h2>
+            <p class="small-note">Client-side only • No data leaves your browser</p>
+          </div>
+
+          <div class="utility-grid" role="list" aria-label="Utility modules">
+
+            <!-- ========================================= -->
+            <!-- KARTU A: Multi-Format Converter -->
+            <!-- ========================================= -->
+            <section class="util-card" role="listitem" aria-label="Multi-Format Converter">
+              <div class="inner">
+                <h3 class="util-title"><i class="fas fa-exchange-alt"></i> Multi-Format Converter</h3>
+                <p class="util-sub">Drag &amp; drop file, pilih sumber &amp; target, konversi langsung di browser.</p>
+
+                <div id="convDrop" class="dropzone" tabindex="0" role="button" aria-label="Dropzone converter">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                    <div>
+                      <strong><i class="fas fa-cloud-upload-alt"></i> Drop file di sini</strong>
+                      <div class="hint" style="margin-top:4px;">PDF, DOCX, XLSX, TXT, JSON, CSV</div>
+                    </div>
+                    <label class="glow-btn" style="padding:8px 14px;">
+                      <i class="fas fa-folder-open"></i> Pilih File
+                      <input id="convInput" type="file" style="display:none" />
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field-row two">
+                  <div>
+                    <label for="convSource"><i class="fas fa-arrow-right"></i> Sumber</label>
+                    <select id="convSource">
+                      <option value="pdf">PDF</option>
+                      <option value="docx">Word (DOCX)</option>
+                      <option value="xlsx" selected>Excel (XLSX)</option>
+                      <option value="txt">TXT</option>
+                      <option value="json">JSON</option>
+                      <option value="csv">CSV</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="convTarget"><i class="fas fa-arrow-left"></i> Target</label>
+                    <select id="convTarget">
+                      <option value="txt" selected>TXT</option>
+                      <option value="pdf">PDF</option>
+                      <option value="docx">Word (DOCX)</option>
+                      <option value="xlsx">Excel (XLSX)</option>
+                      <option value="json">JSON</option>
+                      <option value="csv">CSV</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field-row two" style="margin-top:12px;">
+                  <button id="btnConvert" class="glow-btn"><i class="fas fa-sync"></i> Convert</button>
+                  <button id="btnDownload" class="glow-btn" disabled><i class="fas fa-download"></i> Download</button>
+                </div>
+
+                <div class="prebox">
+                  <div class="hint" id="convStatus">Siap. Silakan upload file.</div>
+                  <div id="convPreview" class="mono" style="margin-top:8px; white-space:pre-wrap; word-break:break-word;"></div>
+                </div>
+
+                <div class="hint"><i class="fas fa-info-circle"></i> Konversi bervariasi tergantung struktur dokumen.</div>
+              </div>
+            </section>
+
+            <!-- ========================================= -->
+            <!-- KARTU B: Sanitizer & Deduplicator -->
+            <!-- ========================================= -->
+            <section class="util-card" role="listitem" aria-label="Data Sanitizer & Deduplicator">
+              <div class="inner">
+                <h3 class="util-title"><i class="fas fa-broom"></i> Data Sanitizer &amp; Deduplicator</h3>
+                <p class="util-sub">Drag &amp; drop TXT/JSON/CSV. Jalankan dedupe/merge/clean white spaces.</p>
+
+                <div id="sanDrop" class="dropzone" tabindex="0" role="button" aria-label="Dropzone sanitizer">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                    <div>
+                      <strong><i class="fas fa-cloud-upload-alt"></i> Drop file(s) di sini</strong>
+                      <div class="hint" style="margin-top:4px;">TXT, JSON, CSV • Multiple file supported</div>
+                    </div>
+                    <label class="glow-btn" style="padding:8px 14px;">
+                      <i class="fas fa-folder-open"></i> Pilih Files
+                      <input id="sanInput" type="file" style="display:none" multiple />
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field-row two">
+                  <button id="btnDedupe" class="glow-btn"><i class="fas fa-trash-alt"></i> Remove Duplicates</button>
+                  <button id="btnMerge" class="glow-btn"><i class="fas fa-merge"></i> Merge Files</button>
+                </div>
+
+                <div class="field-row two" style="grid-template-columns:1fr;">
+                  <button id="btnCleanWS" class="glow-btn"><i class="fas fa-sparkles"></i> Clean White Spaces</button>
+                </div>
+
+                <div class="stats" aria-label="Statistics">
+                  <div class="stat">
+                    <div class="k">Data Awal</div>
+                    <div class="v" id="stInitial">0</div>
+                  </div>
+                  <div class="stat">
+                    <div class="k">Terhapus</div>
+                    <div class="v" id="stDeleted">0</div>
+                  </div>
+                  <div class="stat">
+                    <div class="k">Data Hasil</div>
+                    <div class="v" id="stResult">0</div>
+                  </div>
+                </div>
+
+                <div class="field-row two" style="margin-top:12px;">
+                  <button id="btnSanitizeToConverter" class="glow-btn"><i class="fas fa-paper-plane"></i> Send to Converter</button>
+                  <button id="btnDownloadSan" class="glow-btn" disabled><i class="fas fa-download"></i> Download Output</button>
+                </div>
+
+                <div class="prebox">
+                  <div class="hint">Preview / Output</div>
+                  <textarea id="sanOutput" class="mono" placeholder="Drop file untuk memulai..." disabled></textarea>
+                </div>
+              </div>
+            </section>
+
+            <!-- ========================================= -->
+            <!-- KARTU C: OCR Extractor -->
+            <!-- ========================================= -->
+            <section class="util-card" role="listitem" aria-label="OCR Data Extractor">
+              <div class="inner">
+                <h3 class="util-title"><i class="fas fa-eye"></i> OCR Data Extractor</h3>
+                <p class="util-sub">Upload gambar/screenshot, ekstrak teks dengan Tesseract.js, kirim ke Sanitizer.</p>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:12px;">
+                  <label class="glow-btn" style="padding:8px 14px;">
+                    <i class="fas fa-image"></i> Upload Gambar
+                    <input id="ocrInput" type="file" accept="image/*" style="display:none" />
+                  </label>
+                  <button id="btnOCR" class="glow-btn" disabled><i class="fas fa-brain"></i> Extract OCR</button>
+                </div>
+
+                <div class="prebox">
+                  <div class="hint">Status</div>
+                  <div id="ocrStatus" class="mono" style="color:var(--muted);">Belum ada file.</div>
+                  <div class="hint" style="margin-top:8px;">Hasil OCR akan tampil di bawah.</div>
+                  <textarea id="ocrOutput" class="mono" placeholder="Output OCR akan muncul di sini..." disabled></textarea>
+                </div>
+
+                <div class="field-row two" style="margin-top:12px;">
+                  <button id="btnSendToSan" class="glow-btn" disabled><i class="fas fa-paper-plane"></i> Send to Sanitizer</button>
+                </div>
+
+                <div class="hint"><i class="fas fa-shield-alt"></i> Privacy: OCR diproses di perangkatmu. Tidak ada upload ke server.</div>
+              </div>
+            </section>
+
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="utility-grid" role="list" aria-label="Utility modules">
-
-
-
-          <!-- Kartu A: Multi-Format Converter -->
-          <section class="util-card" role="listitem" aria-label="Multi-Format Converter">
-            <div class="inner">
-
-              <h3 class="util-title">A) Multi-Format Converter</h3>
-              <p class="util-sub">Drag &amp; drop file, pilih sumber &amp; target, lalu konversi langsung di browser.</p>
-
-
-
-
-              <div
-                id="convDrop"
-                class="dropzone"
-                tabindex="0"
-                role="button"
-                aria-label="Dropzone converter"
-              >
-                <div style="display:flex; justify-content: space-between; gap: 12px; align-items:center; flex-wrap:wrap;">
-                  <div>
-                    <strong>Drop file di sini</strong>
-                    <div class="hint" style="margin-top:6px;">Supported: PDF, DOCX, XLSX (yang bisa diproses client-side sesuai library)</div>
-                  </div>
-                  <label class="glow-btn" style="padding:10px 12px;">⬆️ Pilih File
-                    <input id="convInput" type="file" style="display:none" />
-                  </label>
-                </div>
-              </div>
-
-              <div class="field-row two">
-                <div>
-                  <label class="small-note" for="convSource">Sumber</label>
-                  <select id="convSource" aria-label="Sumber">
-
-                    <option value="pdf">PDF</option>
-                    <option value="docx">Word (Docx)</option>
-                    <option value="xlsx" selected>Excel (Xlsx)</option>
-                    <option value="txt">TXT</option>
-                    <option value="json">JSON</option>
-                    <option value="csv">CSV</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="small-note" for="convTarget">Target</label>
-                  <select id="convTarget">
-                    <option value="txt" selected>TXT</option>
-                    <option value="pdf">PDF</option>
-                    <option value="docx">Word (Docx)</option>
-                    <option value="xlsx">Excel (Xlsx)</option>
-                    <option value="json">JSON</option>
-                    <option value="csv">CSV</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="field-row two" style="margin-top: 12px;">
-                <button id="btnConvert" class="glow-btn" type="button">⚡ Convert</button>
-                <button id="btnDownload" class="glow-btn" type="button" disabled>⬇️ Download</button>
-              </div>
-
-              <div class="prebox">
-                <div id="convStatus" class="hint" style="margin-top:0;">Siap. Silakan upload file.</div>
-                <div id="convPreview" class="mono" style="margin-top:10px; white-space:pre-wrap; word-break:break-word;"></div>
-              </div>
-
-              <div class="hint">Catatan: Konversi silang penuh sangat bervariasi tergantung struktur dokumen. Modul ini mengutamakan jalur yang bisa diproses secara realistis via CDN library.</div>
-            </div>
-          </section>
-
-          <!-- Kartu B: Sanitizer & Deduplicator -->
-          <section class="util-card" role="listitem" aria-label="Data Sanitizer & Deduplicator">
-            <div class="inner">
-              <h3 class="util-title">B) Data Sanitizer &amp; Deduplicator</h3>
-              <p class="util-sub">Drag &amp; drop TXT/JSON/CSV. Jalankan dedupe/merge/clean white spaces.</p>
-
-              <div
-                id="sanDrop"
-                class="dropzone"
-                tabindex="0"
-                role="button"
-                aria-label="Dropzone sanitizer"
-              >
-                <div style="display:flex; justify-content: space-between; gap: 12px; align-items:center; flex-wrap:wrap;">
-                  <div>
-                    <strong>Drop file(s) di sini</strong>
-                    <div class="hint" style="margin-top:6px;">TXT, JSON, CSV • Multiple file supported</div>
-                  </div>
-                  <label class="glow-btn" style="padding:10px 12px;">⬆️ Pilih Files
-                    <input id="sanInput" type="file" style="display:none" multiple />
-                  </label>
-                </div>
-              </div>
-
-              <div class="field-row two">
-                <button id="btnDedupe" class="glow-btn" type="button">🧹 Remove Duplicates</button>
-                <button id="btnMerge" class="glow-btn" type="button">🧬 Merge Files</button>
-              </div>
-
-              <div class="field-row two" style="grid-template-columns: 1fr;">
-                <button id="btnCleanWS" class="glow-btn" type="button">✨ Clean White Spaces</button>
-              </div>
-
-              <div class="stats" aria-label="Statistics">
-                <div class="stat">
-                  <div class="k">Data Awal</div>
-                  <div class="v" id="stInitial">0</div>
-                </div>
-                <div class="stat">
-                  <div class="k">Data Terhapus</div>
-                  <div class="v" id="stDeleted">0</div>
-                </div>
-                <div class="stat">
-                  <div class="k">Data Hasil</div>
-                  <div class="v" id="stResult">0</div>
-                </div>
-              </div>
-
-              <div class="field-row two" style="margin-top: 12px;">
-                <button id="btnSanitizeToConverter" class="glow-btn" type="button">📤 Send to Converter</button>
-                <button id="btnDownloadSan" class="glow-btn" type="button" disabled>⬇️ Download Output</button>
-              </div>
-
-              <div class="prebox">
-                <div class="hint" style="margin-top:0;">Preview / Output</div>
-                <textarea id="sanOutput" class="mono" placeholder="Drop file untuk memulai..." disabled></textarea>
-              </div>
-            </div>
-          </section>
-
-          <!-- Kartu C: OCR Extractor -->
-          <section class="util-card" role="listitem" aria-label="OCR Data Extractor">
-
-            <div class="inner">
-
-              <h3 class="util-title">C) OCR Data Extractor</h3>
-              <p class="util-sub">Upload gambar/screenshot, ekstrak teks dengan Tesseract.js, lalu kirim ke Sanitizer.</p>
-
-              <div style="display:flex; gap: 12px; flex-wrap:wrap; align-items:center; margin-top: 12px;">
-                <label class="glow-btn" style="padding:10px 12px;">⬆️ Upload Gambar
-                  <input id="ocrInput" type="file" accept="image/*" style="display:none" />
-                </label>
-                <button id="btnOCR" class="glow-btn" type="button" disabled>🧠 Extract OCR</button>
-              </div>
-
-              <div class="prebox">
-                <div class="hint" style="margin-top:0;">Status</div>
-                <div id="ocrStatus" class="mono">Belum ada file.</div>
-                <div class="hint">Hasil OCR akan tampil di bawah.</div>
-                <textarea id="ocrOutput" class="mono" placeholder="Output OCR akan muncul di sini..." disabled></textarea>
-              </div>
-
-              <div class="field-row two" style="margin-top: 12px;">
-                <button id="btnSendToSan" class="glow-btn" type="button" disabled>📤 Send to Sanitizer</button>
-              </div>
-
-              <div class="hint">Privacy: OCR diproses di perangkatmu. Tidak ada upload ke server.</div>
-            </div>
-          </section>
-        </div>
+    <!-- ===== FOOTER (sama) ===== -->
+    <footer class="footer" style="margin-top:10px;">
+      <span>
+        © 2026 <strong>chromelatte</strong> — dibangun dengan
+        <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon
+      </span>
+      <div class="socials">
+        <a href="https://t.me/chromelatte" target="_blank" aria-label="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://t.me/ksduit" target="_blank" aria-label="Trust">
+          <i class="fas fa-shield-alt"></i>
+        </a>
       </div>
-    </section>
-  </main>
+    </footer>
 
-  <footer class="footer utility-footer">
-    <div class="container">
-      <div class="badge-privacy">🔒 Privacy-First: Processed locally in your browser. No data uploaded.</div>
+    <!-- Privacy Badge -->
+    <div style="text-align:center; padding:10px 0 20px;">
+      <div class="badge-privacy">
+        <i class="fas fa-lock"></i> Privacy-First: Diproses lokal di browser. Tidak ada data yang diupload.
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <script src="js/main.js"></script>
+  <!-- ===== SCRIPT MOBILE TOGGLE ===== -->
+  <script>
+    (function() {
+      const toggle = document.getElementById('menuToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          links.classList.toggle('open');
+          const icon = toggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+          }
+        });
+        links.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            links.classList.remove('open');
+            const icon = toggle.querySelector('i');
+            if (icon) {
+              icon.classList.add('fa-bars');
+              icon.classList.remove('fa-times');
+            }
+          });
+        });
+      }
+    })();
+  </script>
 
+  <!-- ===== UTILITY HUB FUNCTIONS (dipertahankan) ===== -->
   <script>
     // =============================
     // Shared helpers
     // =============================
     const $ = (id) => document.getElementById(id);
-
 
     function setStatus(el, text) {
       if (!el) return;
@@ -608,13 +590,8 @@
     }
 
     function splitToItems(text) {
-      // For TXT: each non-empty line is an item
-      // For JSON/CSV: treat lines too; dedupe by exact line after cleanup
       const t = text || "";
-      return t
-        .split("\n")
-        .map(x => normalizeWS(x))
-        .filter(Boolean);
+      return t.split("\n").map(x => normalizeWS(x)).filter(Boolean);
     }
 
     async function readTextFiles(files) {
@@ -622,14 +599,9 @@
       const texts = [];
       for (const f of arr) {
         const buf = await f.arrayBuffer();
-        // try utf-8 decoding
         const dec = new TextDecoder('utf-8');
         let txt = '';
-        try {
-          txt = dec.decode(buf);
-        } catch (e) {
-          txt = '';
-        }
+        try { txt = dec.decode(buf); } catch (e) { txt = ''; }
         texts.push({ name: f.name, text: txt });
       }
       return texts;
@@ -646,7 +618,6 @@
       const initialLen = loaded.reduce((acc, it) => acc + splitToItems(it.text).length, 0);
       updateStats(initialLen, 0, initialLen);
 
-      // Merge immediately for preview
       sanMerged = loaded.map(x => x.text).join("\n\n");
       sanOutput.disabled = false;
       sanOutput.value = sanMerged;
@@ -715,7 +686,6 @@
       const uniq = [];
       const seen = new Set();
       for (const it of items) {
-        // stable key
         const key = it;
         if (seen.has(key)) continue;
         seen.add(key);
@@ -731,22 +701,15 @@
 
     $("btnDownloadSan").addEventListener('click', () => {
       const out = sanOutput.value || "";
-      const mime = 'text/plain;charset=utf-8';
-      downloadBlob('sanitizer-output.txt', mime, out);
+      downloadBlob('sanitizer-output.txt', 'text/plain;charset=utf-8', out);
     });
 
-    // Send to Converter (as TXT payload)
     $("btnSanitizeToConverter").addEventListener('click', () => {
-      // Fungsionalitas sederhana: arahkan output sanitizernya ke converter preview area.
-      const targetMode = $("convTarget");
       $("convStatus").textContent = 'Sanitizer output siap untuk dikonversi.';
       $("convPreview").textContent = (sanOutput.value || '').slice(0, 12000);
-      // set converter input logically: treat as TXT content blob
       window.__utility_hub_text_payload = sanOutput.value || '';
       $("btnDownload").disabled = true;
-      // default source to txt
       $("convSource").value = 'txt';
-      // keep target selection as user-chosen
       setStatus($("convStatus"), 'Sanitizer output loaded into converter payload. Klik Convert di Converter card.');
     });
 
@@ -803,7 +766,6 @@
 
     btnSendToSan.addEventListener('click', async () => {
       if (!__ocrText.trim()) return;
-      // Load OCR text into sanitizer output and set merged payload.
       sanOutput.disabled = false;
       sanOutput.value = __ocrText;
       sanMerged = __ocrText;
@@ -812,8 +774,6 @@
       btnDownloadSan.disabled = false;
       setStatus($("sanOutput"), __ocrText);
       setStatus(ocrStatus, '📤 OCR text sent to Sanitizer. Kamu bisa Dedupe/Clean/Merge.');
-
-      // Also set converter payload if needed
       window.__utility_hub_text_payload = __ocrText;
     });
 
@@ -859,49 +819,11 @@
       return file.arrayBuffer();
     }
 
-    async function pdfToText(arrayBuffer) {
-      // Using pdf.js
-      const pdfjsLib = window['pdfjs-dist/build/pdf'] || window['pdfjs-dist'] || window['pdfjs'];
-      // If global export not found, try direct global
-      const pdf = await window['pdfjsLib']?.getDocument({ data: arrayBuffer })?.promise;
-      if (!pdf) {
-        // fallback
-        const loadingTask = pdfjsLib ? pdfjsLib.getDocument({ data: arrayBuffer }) : null;
-        if (!loadingTask) throw new Error('pdfjs not available');
-        const doc = await loadingTask.promise;
-        return extractDocText(doc);
-      }
-      return extractDocText(pdf);
-    }
-
-    async function extractDocText(pdfDoc) {
-      let full = [];
-      const numPages = pdfDoc.numPages;
-      for (let i = 1; i <= numPages; i++) {
-        const page = await pdfDoc.getPage(i);
-        const textContent = await page.getTextContent();
-        const strings = textContent.items.map(it => it.str);
-        full.push(strings.join(' '));
-      }
-      return full.join('\n\n');
-    }
-
     async function docxToText(arrayBuffer) {
-      const doc = window.docx || window['docx'];
-      if (!doc || !doc.Packer) {
-        // docx library in UMD provides docx object; however we use extraction workaround:
-        // Try parsing using docx prebuilt (PizZip + Docxtemplater is heavier). For simplicity, use a minimal approach:
-        // We'll fallback to raw zip text by extracting docx XML and pulling paragraph text.
-      }
-
-      // Simple extraction using PizZip
       const zip = new PizZip(arrayBuffer);
       const xml = zip.file('word/document.xml');
       if (!xml) throw new Error('DOCX XML not found');
-      const text = xml.async('string');
-      const xmlStr = await text;
-
-      // Extract <w:t> nodes and join
+      const xmlStr = await xml.async('string');
       const matches = [...xmlStr.matchAll(/<w:t[^>]*>([\s\S]*?)<\/w:t>/g)].map(m => m[1]);
       const decoded = matches.map(s => s.replace(/&amp;/g,'&').replace(/</g,'<').replace(/>/g,'>').replace(/"/g,'"'));
       return decoded.join('').replace(/\s+/g, ' ').trim();
@@ -923,21 +845,33 @@
     }
 
     function jsonFromText(text) {
-      // Try JSON parse, else create {text:...}
-      try {
-        const obj = JSON.parse(text);
-        return obj;
-      } catch {
-        return { text };
-      }
+      try { return JSON.parse(text); } catch { return { text }; }
     }
 
     async function xlsxToJson(arrayBuffer) {
       const wb = XLSX.read(arrayBuffer, { type: 'array' });
       const firstSheet = wb.SheetNames[0];
       const sheet = wb.Sheets[firstSheet];
-      const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
-      return rows;
+      return XLSX.utils.sheet_to_json(sheet, { defval: '' });
+    }
+
+    async function pdfjsExtract(arrayBuffer) {
+      const pdfjsLib = window['pdfjs-dist/build/pdf'];
+      try {
+        if (pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.377/build/pdf.worker.min.js';
+        }
+      } catch {}
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+      const pdf = await loadingTask.promise;
+      let full = [];
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const strings = textContent.items.map(it => it.str);
+        full.push(strings.join(' '));
+      }
+      return full.join('\n\n');
     }
 
     async function convert(payload) {
@@ -956,9 +890,8 @@
       convStatus.textContent = '⏳ Converting...';
       convPreview.textContent = '';
 
-      // 1) get normalized data
       let normalizedText = null;
-      let normalizedRows = null; // JSON array rows from XLSX
+      let normalizedRows = null;
 
       if (payloadText !== null && source === 'txt') {
         normalizedText = payloadText;
@@ -971,20 +904,13 @@
           normalizedText = await docxToText(arrayBuffer);
         } else if (source === 'xlsx') {
           normalizedRows = await xlsxToJson(arrayBuffer);
-        } else if (source === 'txt') {
-          normalizedText = new TextDecoder('utf-8').decode(arrayBuffer);
-        } else if (source === 'json') {
-          normalizedText = new TextDecoder('utf-8').decode(arrayBuffer);
-        } else if (source === 'csv') {
+        } else if (source === 'txt' || source === 'json' || source === 'csv') {
           normalizedText = new TextDecoder('utf-8').decode(arrayBuffer);
         }
       }
 
-      // 2) convert to target
       if (target === 'txt') {
-        const outText = normalizedRows
-          ? JSON.stringify(normalizedRows, null, 2)
-          : (normalizedText ?? '');
+        const outText = normalizedRows ? JSON.stringify(normalizedRows, null, 2) : (normalizedText ?? '');
         __convResultBlob = new Blob([outText], { type: 'text/plain;charset=utf-8' });
         __convResultName = 'converted.txt';
         convPreview.textContent = outText.slice(0, 12000);
@@ -1003,7 +929,6 @@
       }
 
       if (target === 'csv') {
-        // If rows: straightforward; else try to parse JSON string
         let rows = normalizedRows;
         if (!rows) {
           const obj = jsonFromText(normalizedText || '');
@@ -1018,7 +943,6 @@
       }
 
       if (target === 'xlsx') {
-        // Create a workbook from normalizedRows or from parsed JSON
         let rows = normalizedRows;
         if (!rows) {
           const obj = jsonFromText(normalizedText || '');
@@ -1036,29 +960,23 @@
       }
 
       if (target === 'pdf') {
-        // Minimal: create a new PDF with text using pdf-lib.
-        // For richer layout, add more logic later.
         const { PDFDocument, StandardFonts } = window.PDFLib;
         const doc = await PDFDocument.create();
-        const page = doc.addPage([595.28, 841.89]);
+        let page = doc.addPage([595.28, 841.89]);
         const font = await doc.embedFont(StandardFonts.Helvetica);
 
         const text = (normalizedRows ? JSON.stringify(normalizedRows, null, 2) : (normalizedText || '')).slice(0, 15000);
         const fontSize = 10;
-        const { width: pageWidth, height: pageHeight } = page.getSize();
+        const { height: pageHeight } = page.getSize();
         let y = pageHeight - 52;
 
         const lines = text.split(/\r?\n/);
         for (const line of lines) {
           if (y < 52) {
-            // new page
-            const p = doc.addPage([595.28, 841.89]);
+            page = doc.addPage([595.28, 841.89]);
             y = pageHeight - 52;
-            // reassign page reference
-            // eslint-disable-next-line no-unused-vars
-            page = p;
           }
-          page.drawText(line.slice(0, 120), { x: 52, y, size: fontSize, font, color: undefined });
+          page.drawText(line.slice(0, 120), { x: 52, y, size: fontSize, font });
           y -= 12;
         }
 
@@ -1071,12 +989,7 @@
       }
 
       if (target === 'docx') {
-        // Client-side docx creation is complex; provide best-effort: download as TXT but inform.
-        // (Implementing full DOCX generation needs docx library usage.)
-        const text = normalizedRows
-          ? JSON.stringify(normalizedRows, null, 2)
-          : (normalizedText || '');
-        // Best effort: output as .txt to respect privacy; label as .docx not safe.
+        const text = normalizedRows ? JSON.stringify(normalizedRows, null, 2) : (normalizedText || '');
         __convResultBlob = new Blob([text], { type: 'text/plain;charset=utf-8' });
         __convResultName = 'converted_as_txt.docx.txt';
         convPreview.textContent = '⚠️ DOCX generation belum lengkap. Saat ini menghasilkan TXT payload.';
@@ -1087,28 +1000,6 @@
       throw new Error('Target tidak didukung saat ini.');
     }
 
-    async function pdfjsExtract(arrayBuffer) {
-      const pdfjsLib = window['pdfjs-dist/build/pdf'];
-      // Setup worker is not necessary for min builds if same origin; but set anyway.
-      try {
-        if (pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
-          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.377/build/pdf.worker.min.js';
-        }
-      } catch {}
-
-      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
-      const pdf = await loadingTask.promise;
-      let full = [];
-      const numPages = pdf.numPages;
-      for (let i = 1; i <= numPages; i++) {
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        const strings = textContent.items.map(it => it.str);
-        full.push(strings.join(' '));
-      }
-      return full.join('\n\n');
-    }
-
     btnConvert.addEventListener('click', async () => {
       try {
         resetConvUI();
@@ -1117,7 +1008,6 @@
           convStatus.textContent = '⚠️ Upload file dulu.';
           return;
         }
-
         await convert(payload);
         convStatus.textContent = '✅ Convert selesai.';
       } catch (e) {
@@ -1130,14 +1020,6 @@
       if (!__convResultBlob) return;
       downloadBlob(__convResultName, __convResultBlob.type, __convResultBlob);
     });
-
-    // set initial date in all pages
-    // (reuse style.js inline patterns)
-    document.addEventListener('DOMContentLoaded', () => {
-      const y = document.getElementById('year');
-      if (y) y.textContent = new Date().getFullYear();
-    });
   </script>
 </body>
 </html>
-

@@ -3,234 +3,504 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ASCII Image Converter</title>
+  <title>ASCII Image Converter • chromelatte 🖼️</title>
   <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html" aria-label="Home">
-        <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#22D3EE"/>
-              <stop offset="1" stop-color="#7C3AED"/>
-            </linearGradient>
-          </defs>
-          <path d="M24 3C33.9 3 42 11.1 42 21V27C42 36.9 33.9 45 24 45C14.1 45 6 36.9 6 27V21C6 11.1 14.1 3 24 3Z" stroke="url(#g)" stroke-width="2"/>
-          <path d="M15 25.5C18.2 19 24 17 33 19.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M15.5 31.5C19 27 24 26 33 27.5" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="18" cy="20" r="2.2" fill="#22D3EE"/>
-          <circle cx="30" cy="17" r="2.2" fill="#7C3AED"/>
-        </svg>
-
-        <span class="brand-text">
-          <span class="title">chromelatte</span>
-          <span class="subtitle">ASCII Converter</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-        <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-        <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-        <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-        <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-        <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-        <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
-        <a class="nav-link" data-navlink href="utility-hub.html">🧰 Utility Hub</a>
-      </nav>
-
-      <button class="burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
-        <span class="burger-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
-      </button>
-    </div>
-
-    <div class="mobile-panel" data-mobile-panel>
-      <div class="container">
-        <div class="mobile-links" aria-label="Mobile Navigation">
-          <a class="nav-link" data-navlink href="index.html">🏠 Home</a>
-          <a class="nav-link" data-navlink href="projects.html">🧩 Projects</a>
-          <a class="nav-link" data-navlink href="trust.html">🛡️ Trust</a>
-          <a class="nav-link" data-navlink href="ascii.html">🖼️ ASCII</a>
-          <a class="nav-link nav-cta" data-navlink href="contact.html">📲 Contact</a>
-          <a class="nav-link" data-navlink href="dashboard.html">📡 Live Dashboard</a>
-          <a class="nav-link nav-cta" data-navlink href="generator.html">✨ Generator</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2">🖼️ ASCII Image Converter</h2>
-          <p class="small-note">Upload gambar → auto convert jadi ASCII 😎✨</p>
-        </div>
-
-        <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
-          <div class="callout">
-            <h3 class="card-title">📤 Upload Gambar</h3>
-            <p class="card-desc">Support: PNG/JPG (browser akan render ke canvas terlebih dulu).</p>
-
-            <div class="card-actions" style="margin-top: 10px;">
-              <label class="btn btn-primary" style="cursor:pointer;">
-                ⬆️ Pilih Gambar
-                <input id="imageInput" type="file" accept="image/*" style="display:none" />
-              </label>
-
-              <button id="copyBtn" class="btn" type="button" disabled>
-                📋 Copy to Clipboard
-              </button>
-            </div>
-
-            <p class="small-note" style="margin-top: 12px;">
-              Tip: Hasil akan ditampilkan di bawah dalam <code><pre></code> monospace.
-            </p>
-
-            <div style="margin-top: 14px;">
-              <label class="small-note" for="widthRange">🔧 ASCII Width: <span id="widthValue">100</span></label>
-              <input id="widthRange" type="range" min="40" max="180" value="100" step="1" style="width:100%; margin-top:6px;" />
-            </div>
-          </div>
-
-          <div class="callout" style="padding: 12px;">
-            <h3 class="card-title">🧾 Output ASCII</h3>
-            <p class="small-note">Hasil conversion akan otomatis refresh setelah gambar di-upload.</p>
-
-            <pre id="asciiOutput"
-                 style="margin: 10px 0 0; padding: 12px; border-radius: 14px; border: 1px solid rgba(34, 211, 238, 0.22); background: rgba(0,0,0,0.25); overflow:auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; max-height: 55vh;">
-Loading…
-            </pre>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="line container">© <span id="year"></span> chromelatte • ASCII Neon ✨</div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-
-  <script>
-    const imageInput = document.getElementById('imageInput');
-    const asciiOutput = document.getElementById('asciiOutput');
-    const copyBtn = document.getElementById('copyBtn');
-    const widthRange = document.getElementById('widthRange');
-    const widthValue = document.getElementById('widthValue');
-
-    // Dark Minimal Neon palette by character density
-    // From lightest -> darkest. We'll reverse based on luminance.
-    const charset = ' .,:;i1tfLCG08@';
-
-    widthValue.textContent = widthRange.value;
-    widthRange.addEventListener('input', () => {
-      widthValue.textContent = widthRange.value;
-      // If we already have an ASCII output, regenerate from last image if available
-      if (lastImageBitmap) {
-        generateAsciiFromBitmap(lastImageBitmap);
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* tambahan khusus ASCII */
+    .drop-zone {
+      border: 2px dashed rgba(34, 211, 238, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+      background: rgba(34, 211, 238, 0.04);
+      margin-bottom: 14px;
+    }
+    .drop-zone:hover {
+      border-color: var(--cyan);
+      background: rgba(34, 211, 238, 0.08);
+    }
+    .drop-zone.dragover {
+      border-color: var(--purple);
+      background: rgba(124, 58, 237, 0.12);
+      transform: scale(1.01);
+    }
+    .drop-zone .icon-big {
+      font-size: 48px;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .drop-zone p {
+      color: var(--muted);
+      margin: 0;
+    }
+    .drop-zone .hint {
+      font-size: 13px;
+      margin-top: 6px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+    #asciiOutput {
+      margin: 10px 0 0;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(34, 211, 238, 0.22);
+      background: rgba(0, 0, 0, 0.35);
+      overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-size: 11px;
+      line-height: 1.3;
+      max-height: 55vh;
+      min-height: 120px;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    #asciiOutput.loading {
+      color: var(--muted);
+      font-style: italic;
+    }
+    #asciiOutput.error {
+      color: #f87171;
+      border-color: rgba(248, 113, 113, 0.3);
+    }
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+    }
+    .status-bar .info {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .status-bar .info i {
+      color: var(--cyan);
+      margin-right: 6px;
+    }
+    .btn-reset {
+      background: rgba(248, 113, 113, 0.12);
+      border-color: rgba(248, 113, 113, 0.2);
+      color: #f87171;
+    }
+    .btn-reset:hover {
+      background: rgba(248, 113, 113, 0.2);
+    }
+    .badge-count {
+      display: inline-block;
+      background: rgba(34, 211, 238, 0.12);
+      color: var(--cyan);
+      padding: 2px 10px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .drop-zone .icon-big {
+        font-size: 32px;
       }
-    });
-
-    let lastImageBitmap = null;
-
-    imageInput.addEventListener('change', async (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-
-      const bitmap = await createImageBitmap(file);
-      lastImageBitmap = bitmap;
-      await generateAsciiFromBitmap(bitmap);
-    });
-
-    async function generateAsciiFromBitmap(bitmap) {
-      try {
-        asciiOutput.textContent = '⏳ Converting...';
-        copyBtn.disabled = true;
-
-        const targetWidth = Number(widthRange.value);
-
-        // Calculate aspect ratio correction for font: characters are taller than wide.
-        // Empirically 0.55 works okay.
-        const aspect = bitmap.height / bitmap.width;
-        const fontAspect = 0.55;
-        const targetHeight = Math.max(1, Math.round(targetWidth * aspect * fontAspect));
-
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
-
-        // Draw and sample
-        ctx.drawImage(bitmap, 0, 0, targetWidth, targetHeight);
-        const imgData = ctx.getImageData(0, 0, targetWidth, targetHeight);
-        const data = imgData.data;
-
-        // Build ASCII
-        let out = '';
-        for (let y = 0; y < targetHeight; y++) {
-          for (let x = 0; x < targetWidth; x++) {
-            const i = (y * targetWidth + x) * 4;
-            const r = data[i];
-            const g = data[i + 1];
-            const b = data[i + 2];
-
-            // Relative luminance
-            const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-
-            // Map lum (0..255) to charset index
-            const idx = Math.floor((lum / 255) * (charset.length - 1));
-            // Darker pixels should use denser chars at the end, so invert index.
-            const char = charset[charset.length - 1 - idx];
-            out += char;
-          }
-          out += '\n';
-        }
-
-        asciiOutput.textContent = out;
-        copyBtn.disabled = false;
-      } catch (err) {
-        console.error(err);
-        asciiOutput.textContent = '❌ Gagal mengonversi. Coba gambar lain ya.';
-        copyBtn.disabled = true;
+      #asciiOutput {
+        font-size: 9px;
+        max-height: 40vh;
+        min-height: 80px;
       }
     }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+      <div class="logo">
+        <i class="fas fa-code"></i> chromelatte
+      </div>
+      <button class="hamburger" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
+        <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
+        <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
+        <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram-plane"></i> Owner
+        </a>
+      </nav>
+    </header>
 
-    copyBtn.addEventListener('click', async () => {
-      const text = asciiOutput.textContent || '';
-      if (!text.trim() || text.trim() === 'Loading…') return;
+    <!-- ===== MAIN ===== -->
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="h2"><i class="fas fa-image" style="color:var(--cyan);"></i> ASCII Image Converter</h2>
+            <p class="small-note">Upload gambar → auto convert ke ASCII art 😎✨</p>
+          </div>
 
-      try {
-        await navigator.clipboard.writeText(text);
-        copyBtn.textContent = '✅ Copied!';
-        setTimeout(() => {
-          copyBtn.textContent = '📋 Copy to Clipboard';
-        }, 1200);
-      } catch (err) {
-        console.error(err);
-        // Fallback: select & copy
-        const range = document.createRange();
-        range.selectNodeContents(asciiOutput);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        document.execCommand('copy');
-        sel.removeAllRanges();
-        copyBtn.textContent = '✅ Copied!';
-        setTimeout(() => {
-          copyBtn.textContent = '📋 Copy to Clipboard';
-        }, 1200);
+          <div class="grid" style="grid-template-columns: 1fr; gap: 16px;">
+            <!-- Upload area -->
+            <div class="callout">
+              <h3 class="card-title"><i class="fas fa-upload" style="color:var(--cyan);"></i> Upload Gambar</h3>
+              <p class="card-desc">Support: PNG, JPG, WEBP (browser akan render ke canvas terlebih dulu).</p>
+
+              <!-- Drop Zone -->
+              <div class="drop-zone" id="dropZone">
+                <div class="icon-big"><i class="fas fa-cloud-upload-alt"></i></div>
+                <p><strong>Drag &amp; drop</strong> gambar di sini, atau klik untuk pilih file</p>
+                <p class="hint">Maksimal 5MB • Format: PNG, JPG, WEBP</p>
+                <input id="imageInput" type="file" accept="image/*" style="display:none" />
+              </div>
+
+              <!-- Tombol aksi -->
+              <div class="card-actions" style="margin-top: 12px; flex-wrap: wrap;">
+                <button id="resetBtn" class="btn btn-reset" type="button">
+                  <i class="fas fa-trash-alt"></i> Reset
+                </button>
+                <button id="copyBtn" class="btn" type="button" disabled>
+                  <i class="fas fa-copy"></i> Copy to Clipboard
+                </button>
+                <button id="downloadAsciiBtn" class="btn btn-primary" type="button" disabled>
+                  <i class="fas fa-download"></i> Download .txt
+                </button>
+              </div>
+
+              <!-- Settings -->
+              <div style="margin-top: 16px;">
+                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                  <label class="small-note" for="widthRange">
+                    <i class="fas fa-arrows-alt-h"></i> ASCII Width: <span id="widthValue">100</span>
+                  </label>
+                  <input id="widthRange" type="range" min="40" max="200" value="100" step="1"
+                         style="flex:1; min-width:140px; accent-color:var(--cyan);" />
+                  <span class="badge-count" id="charCount">0 karakter</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Output -->
+            <div class="callout" style="padding: 12px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                <h3 class="card-title" style="font-size:16px; margin:0;">
+                  <i class="fas fa-terminal" style="color:var(--cyan);"></i> Output ASCII
+                </h3>
+                <span class="small-note" id="statusText">Belum ada gambar</span>
+              </div>
+
+              <pre id="asciiOutput">📤 Upload gambar atau drag &amp; drop untuk mulai konversi.</pre>
+
+              <!-- Status bar -->
+              <div class="status-bar">
+                <span class="info" id="fileInfo">
+                  <i class="fas fa-info-circle"></i> Belum ada file
+                </span>
+                <span class="info" id="dimensionInfo">
+                  <i class="fas fa-arrows-alt"></i> - × -
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <span>
+        © 2026 <strong>chromelatte</strong> — dibangun dengan
+        <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon
+      </span>
+      <div class="socials">
+        <a href="https://t.me/chromelatte" target="_blank" aria-label="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://t.me/ksduit" target="_blank" aria-label="Trust">
+          <i class="fas fa-shield-alt"></i>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== SCRIPT ===== -->
+  <script>
+    (function() {
+      // Mobile menu toggle
+      const toggle = document.getElementById('menuToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          links.classList.toggle('open');
+          const icon = toggle.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+          }
+        });
+        links.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            links.classList.remove('open');
+            const icon = toggle.querySelector('i');
+            if (icon) {
+              icon.classList.add('fa-bars');
+              icon.classList.remove('fa-times');
+            }
+          });
+        });
       }
-    });
+    })();
+
+    // =============================================
+    // ASCII CONVERTER
+    // =============================================
+    (function() {
+      const dropZone = document.getElementById('dropZone');
+      const imageInput = document.getElementById('imageInput');
+      const asciiOutput = document.getElementById('asciiOutput');
+      const copyBtn = document.getElementById('copyBtn');
+      const downloadAsciiBtn = document.getElementById('downloadAsciiBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const widthRange = document.getElementById('widthRange');
+      const widthValue = document.getElementById('widthValue');
+      const statusText = document.getElementById('statusText');
+      const fileInfo = document.getElementById('fileInfo');
+      const dimensionInfo = document.getElementById('dimensionInfo');
+      const charCount = document.getElementById('charCount');
+
+      const charset = ' .,:;i1tfLCG08@';
+
+      let lastImageBitmap = null;
+      let currentFileName = '';
+      let currentAscii = '';
+
+      // ----- Update UI -----
+      function updateUI(text, isError = false) {
+        asciiOutput.textContent = text;
+        asciiOutput.classList.remove('loading', 'error');
+        if (isError) {
+          asciiOutput.classList.add('error');
+          statusText.textContent = '❌ Error';
+        } else if (text.includes('⏳') || text.includes('Loading')) {
+          asciiOutput.classList.add('loading');
+          statusText.textContent = '⏳ Memproses...';
+        } else if (text.includes('Upload') || text.includes('drag')) {
+          statusText.textContent = '📤 Tunggu upload';
+        } else {
+          statusText.textContent = '✅ Selesai';
+        }
+        // count chars (excluding newlines)
+        const clean = text.replace(/\n/g, '');
+        charCount.textContent = clean.length + ' karakter';
+        // enable buttons
+        const hasContent = text && !text.includes('Upload') && !text.includes('drag') && !text.includes('⏳') && !isError;
+        copyBtn.disabled = !hasContent;
+        downloadAsciiBtn.disabled = !hasContent;
+        if (hasContent) {
+          currentAscii = text;
+        }
+      }
+
+      function setFileInfo(name, size) {
+        const sizeStr = size ? (size / 1024).toFixed(1) + ' KB' : '';
+        fileInfo.innerHTML = `<i class="fas fa-file-image"></i> ${name || 'Belum ada file'} ${sizeStr ? '• ' + sizeStr : ''}`;
+      }
+
+      function setDimensionInfo(w, h) {
+        dimensionInfo.innerHTML = `<i class="fas fa-arrows-alt"></i> ${w || '-'} × ${h || '-'}`;
+      }
+
+      // ----- Generate ASCII -----
+      async function generateAsciiFromBitmap(bitmap) {
+        try {
+          updateUI('⏳ Mengonversi...');
+          copyBtn.disabled = true;
+          downloadAsciiBtn.disabled = true;
+
+          const targetWidth = Number(widthRange.value);
+          const aspect = bitmap.height / bitmap.width;
+          const fontAspect = 0.55;
+          const targetHeight = Math.max(1, Math.round(targetWidth * aspect * fontAspect));
+
+          setDimensionInfo(targetWidth, targetHeight);
+
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+
+          ctx.drawImage(bitmap, 0, 0, targetWidth, targetHeight);
+          const imgData = ctx.getImageData(0, 0, targetWidth, targetHeight);
+          const data = imgData.data;
+
+          let out = '';
+          for (let y = 0; y < targetHeight; y++) {
+            for (let x = 0; x < targetWidth; x++) {
+              const i = (y * targetWidth + x) * 4;
+              const lum = 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+              const idx = Math.floor((lum / 255) * (charset.length - 1));
+              out += charset[charset.length - 1 - idx];
+            }
+            out += '\n';
+          }
+
+          currentAscii = out;
+          updateUI(out);
+          statusText.textContent = '✅ Konversi selesai!';
+        } catch (err) {
+          console.error(err);
+          updateUI('❌ Gagal mengonversi. Coba gambar lain atau refresh halaman.', true);
+          statusText.textContent = '❌ Error';
+          copyBtn.disabled = true;
+          downloadAsciiBtn.disabled = true;
+        }
+      }
+
+      // ----- Load file -----
+      async function loadFile(file) {
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          updateUI('❌ File bukan gambar. Support: PNG, JPG, WEBP.', true);
+          statusText.textContent = '❌ Format tidak didukung';
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          updateUI('❌ File terlalu besar. Maksimal 5MB.', true);
+          statusText.textContent = '❌ Terlalu besar';
+          return;
+        }
+
+        currentFileName = file.name;
+        setFileInfo(file.name, file.size);
+        statusText.textContent = '⏳ Memuat gambar...';
+
+        try {
+          const bitmap = await createImageBitmap(file);
+          lastImageBitmap = bitmap;
+          await generateAsciiFromBitmap(bitmap);
+        } catch (err) {
+          console.error(err);
+          updateUI('❌ Gagal memuat gambar. Coba file lain.', true);
+          statusText.textContent = '❌ Gagal muat';
+        }
+      }
+
+      // ----- Event: input file -----
+      imageInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) loadFile(file);
+      });
+
+      // ----- Event: drag & drop -----
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const file = e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file) {
+          // sync input
+          const dt = new DataTransfer();
+          dt.items.add(file);
+          imageInput.files = dt.files;
+          loadFile(file);
+        }
+      });
+      dropZone.addEventListener('click', () => {
+        imageInput.click();
+      });
+
+      // ----- Event: width slider -----
+      widthRange.addEventListener('input', () => {
+        widthValue.textContent = widthRange.value;
+        if (lastImageBitmap) {
+          generateAsciiFromBitmap(lastImageBitmap);
+        }
+      });
+
+      // ----- Event: copy -----
+      copyBtn.addEventListener('click', async () => {
+        const text = currentAscii || asciiOutput.textContent || '';
+        if (!text.trim() || text.includes('Upload') || text.includes('drag')) return;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+          }, 1500);
+        } catch (err) {
+          // fallback
+          const range = document.createRange();
+          range.selectNodeContents(asciiOutput);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          document.execCommand('copy');
+          sel.removeAllRanges();
+          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+          }, 1500);
+        }
+      });
+
+      // ----- Event: download .txt -----
+      downloadAsciiBtn.addEventListener('click', () => {
+        const text = currentAscii || asciiOutput.textContent || '';
+        if (!text.trim() || text.includes('Upload') || text.includes('drag')) return;
+
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const name = currentFileName ? currentFileName.replace(/\.[^.]+$/, '') : 'ascii';
+        a.download = `${name}_ascii.txt`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      });
+
+      // ----- Event: reset -----
+      resetBtn.addEventListener('click', () => {
+        lastImageBitmap = null;
+        currentFileName = '';
+        currentAscii = '';
+        imageInput.value = '';
+        setFileInfo('', 0);
+        setDimensionInfo('-', '-');
+        updateUI('📤 Upload gambar atau drag &amp; drop untuk mulai konversi.');
+        statusText.textContent = '🔄 Direset';
+        copyBtn.disabled = true;
+        downloadAsciiBtn.disabled = true;
+        asciiOutput.classList.remove('error', 'loading');
+        widthRange.value = 100;
+        widthValue.textContent = '100';
+      });
+
+      // ----- Init -----
+      updateUI('📤 Upload gambar atau drag &amp; drop untuk mulai konversi.');
+      setFileInfo('', 0);
+      setDimensionInfo('-', '-');
+      copyBtn.disabled = true;
+      downloadAsciiBtn.disabled = true;
+    })();
   </script>
 </body>
 </html>
-
