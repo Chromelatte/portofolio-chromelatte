@@ -1,501 +1,1030 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Live Dashboard • chromelatte 📡✨</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <style>
-    /* tambahan untuk dashboard */
-    .dash-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    @media (min-width: 768px) {
-      .dash-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .dash-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .dash-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: 0.25s;
-    }
-    .dash-card:hover {
-      border-color: var(--cyan);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-    }
-    .dash-card .card-inner {
-      padding: 16px;
-    }
-    .dash-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .dash-table th,
-    .dash-table td {
-      padding: 10px 10px;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-    }
-    .dash-table th {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.2px;
-    }
-    .delta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 13px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-    }
-    .delta.good { color: #34d399; border-color: rgba(52,211,153,0.35); background: rgba(52,211,153,0.08); }
-    .delta.bad { color: #f87171; border-color: rgba(248,113,113,0.35); background: rgba(248,113,113,0.08); }
-    .delta.neutral { color: var(--muted); }
-    .table-wrap {
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.15);
-      overflow: hidden;
-    }
-    .feed {
-      display: grid;
-      gap: 8px;
-    }
-    .feed-item {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
-      transition: 0.2s;
-    }
-    .feed-item:hover {
-      border-color: var(--cyan);
-      background: rgba(255,255,255,0.05);
-      transform: translateY(-1px);
-    }
-    .feed-title { font-weight: 700; line-height: 1.25; }
-    .feed-meta { margin-top: 4px; font-size: 12px; color: var(--muted); }
-    .shimmer {
-      position: relative;
-      overflow: hidden;
-    }
-    .shimmer::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      transform: translateX(-100%);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-      animation: shimmerMove 1.2s ease-in-out infinite;
-    }
-    @keyframes shimmerMove {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    .bmkg {
-      display: grid;
-      gap: 8px;
-    }
-    .bmkg-row {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.12);
-    }
-    .bmkg-label { font-weight: 700; color: var(--muted); }
-    .bmkg-value { font-weight: 700; word-break: break-word; }
-    .refresh-btn {
-      background: rgba(34,211,238,0.08);
-      border: 1px solid rgba(34,211,238,0.2);
-      color: var(--cyan);
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .refresh-btn:hover {
-      background: rgba(34,211,238,0.15);
-      transform: scale(1.02);
-    }
-    .refresh-btn i { margin-right: 4px; }
-    .status-ok { color: #34d399; }
-    .status-error { color: #f87171; }
-    .status-loading { color: var(--cyan); }
-    @media (max-width: 600px) {
-      .bmkg-row { grid-template-columns: 1fr; gap: 4px; }
-    }
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>chromelatte — Feed Sosial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & VARIABEL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #18191a;
+            --surface: #242526;
+            --card-bg: #3a3b3c;
+            --border: #3e4042;
+            --text: #e4e6eb;
+            --muted: #b0b3b8;
+            --cyan: #22d3ee;
+            --purple: #7c3aed;
+            --radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --like-color: #f02849;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 0 16px;
+            line-height: 1.5;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 8px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 8px;
+            background: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo i {
+            color: var(--cyan);
+            margin-right: 6px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            font-weight: 600;
+            color: var(--muted);
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a i {
+            margin-right: 4px;
+        }
+        .btn-telegram {
+            background: #1a8cff;
+            color: #fff !important;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .btn-telegram:hover {
+            background: #2b9aff;
+            transform: scale(1.02);
+        }
+        .hamburger {
+            display: none;
+            font-size: 26px;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+        }
+        @media (max-width:700px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px 0 8px;
+                border-top: 1px solid var(--border);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .btn-telegram {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* ===== PROFIL ===== */
+        .profile-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 16px 0 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            background-image: url('profile/profile.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .profile-avatar span {
+            display: none;
+        }
+        .profile-info h2 {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .profile-info .username {
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .profile-info .bio {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* ===== BADGE VERIFIED ===== */
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: #1b8cff;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+        .verified-badge i {
+            font-size: 11px;
+        }
+
+        /* ===== FORM POSTING ===== */
+        .post-form {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .post-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .post-form textarea:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
+        }
+        .post-form .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .post-form .form-actions button {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .post-form .form-actions .btn-post {
+            background: var(--cyan);
+            color: #0b0d15;
+        }
+        .post-form .form-actions .btn-post:hover {
+            background: #2dd4ee;
+            transform: scale(1.02);
+        }
+        .post-form .form-actions .btn-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--muted);
+        }
+        .post-form .form-actions .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .post-form .form-actions .btn-post:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== POSTINGAN ===== */
+        .post-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+            background-image: url('profile/profile.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .post-avatar span {
+            display: none;
+        }
+        .post-user {
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .post-time {
+            font-size: 12px;
+            color: var(--muted);
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        .post-content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            white-space: pre-wrap;
+        }
+        .post-stats {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--muted);
+        }
+        .post-stats i {
+            margin-right: 4px;
+        }
+        .post-stats .likes {
+            color: var(--like-color);
+            font-weight: 700;
+        }
+        .post-actions {
+            display: flex;
+            gap: 8px;
+            padding-top: 8px;
+        }
+        .post-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .post-actions button:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .post-actions .like-btn.liked {
+            color: var(--like-color);
+        }
+        .post-actions .like-btn.liked i {
+            font-weight: 900;
+        }
+
+        /* ===== KOMENTAR ===== */
+        .comment-section {
+            margin-top: 16px;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+        .comment-count {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+        .comment-item {
+            display: flex;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            align-items: flex-start;
+        }
+        .comment-body {
+            flex: 1;
+        }
+        .comment-name {
+            font-weight: 700;
+            font-size: 13px;
+            display: inline;
+        }
+        .comment-text {
+            font-size: 14px;
+            margin-left: 6px;
+            display: inline;
+        }
+        .comment-time {
+            font-size: 11px;
+            color: var(--muted);
+            margin-left: 8px;
+        }
+
+        /* ===== FORM KOMENTAR ===== */
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .comment-form input,
+        .comment-form textarea {
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            width: 100%;
+            resize: vertical;
+        }
+        .comment-form input:focus,
+        .comment-form textarea:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
+        }
+        .comment-form textarea {
+            min-height: 60px;
+            border-radius: 16px;
+            font-family: inherit;
+        }
+        .comment-form .form-row {
+            display: flex;
+            gap: 8px;
+        }
+        .comment-form .form-row input {
+            flex: 1;
+        }
+        .comment-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: var(--cyan);
+            color: #0b0d15;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            align-self: flex-end;
+        }
+        .comment-form button:hover {
+            background: #2dd4ee;
+            transform: scale(1.02);
+        }
+        .comment-form button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 0 16px;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .footer a {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+        .footer .socials {
+            display: flex;
+            gap: 16px;
+        }
+        .footer .socials a {
+            color: var(--muted);
+            font-size: 18px;
+            transition: 0.2s;
+        }
+        .footer .socials a:hover {
+            color: #fff;
+        }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--muted);
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .load-more-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== HAPUS POSTINGAN (admin) ===== */
+        .delete-post {
+            margin-left: auto;
+            color: #f87171;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0 4px;
+            opacity: 0.5;
+            transition: 0.2s;
+        }
+        .delete-post:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- ===== NAVBAR ===== -->
-    <header class="navbar">
-      <div class="logo"><i class="fas fa-code"></i> chromelatte</div>
-      <button class="hamburger" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
-      <nav class="nav-links" id="navLinks">
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
-        <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
-        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-        <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
-        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
-        <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
-        <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
-        <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
-          <i class="fab fa-telegram-plane"></i> Owner
-        </a>
-      </nav>
-    </header>
 
-    <!-- ===== MAIN ===== -->
-    <main>
-      <section class="section">
-        <div class="container">
-          <div class="section-head">
-            <h2 class="h2"><i class="fas fa-chart-line" style="color:var(--cyan);"></i> Indonesia Real-time Dashboard</h2>
-            <p class="small-note">Data diperbarui otomatis setiap 5 menit • <span id="globalStatus">🟢 Live</span></p>
-          </div>
+    <div class="container">
 
-          <div class="dash-grid">
-            <!-- Widget 1: Economic -->
-            <div class="dash-card">
-              <div class="card-inner">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-                  <h3 class="card-title" style="margin:0;">💹 Live Economic</h3>
-                  <span class="small-note" id="economicTime">⏳ loading...</span>
-                </div>
-                <div class="table-wrap">
-                  <table class="dash-table">
-                    <thead><tr><th>Kode</th><th>Nilai</th><th>Perubahan</th></tr></thead>
-                    <tbody>
-                      <tr><td><strong>USD/IDR</strong></td><td><span id="usdIdr">—</span></td><td><span id="usdIdrDelta" class="delta neutral">—</span></td></tr>
-                      <tr><td><strong>IHSG</strong></td><td><span id="ihsg">—</span></td><td><span id="ihsgDelta" class="delta neutral">—</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <button class="refresh-btn" onclick="loadEconomic()"><i class="fas fa-sync"></i> Refresh</button>
-                <p class="small-note" style="margin-top:6px;"><i class="fas fa-database"></i> Sumber: exchangerate.host & Yahoo Finance</p>
-              </div>
-            </div>
-
-            <!-- Widget 2: Government Feed -->
-            <div class="dash-card">
-              <div class="card-inner">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-                  <h3 class="card-title" style="margin:0;">🏛️ Government Update</h3>
-                  <span class="small-note"><i class="fas fa-newspaper"></i> feed</span>
-                </div>
-                <div id="govFeed" class="feed"><div class="feed-item shimmer">Memuat berita...</div></div>
-                <button class="refresh-btn" onclick="loadGovFeed()"><i class="fas fa-sync"></i> Refresh</button>
-                <p class="small-note" style="margin-top:6px;"><i class="fas fa-rss"></i> RSS Kominfo (via proxy)</p>
-              </div>
-            </div>
-
-            <!-- Widget 3: BMKG -->
-            <div class="dash-card">
-              <div class="card-inner">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-                  <h3 class="card-title" style="margin:0;">🌋 BMKG Monitor</h3>
-                  <span class="small-note" id="bmkgTime">⏳ loading...</span>
-                </div>
-                <div class="bmkg">
-                  <div class="bmkg-row"><div class="bmkg-label"><i class="fas fa-map-pin"></i> Lokasi</div><div class="bmkg-value" id="quakeLoc">—</div></div>
-                  <div class="bmkg-row"><div class="bmkg-label"><i class="fas fa-ruler"></i> Magnitudo</div><div class="bmkg-value" id="quakeMag">—</div></div>
-                  <div class="bmkg-row"><div class="bmkg-label"><i class="fas fa-clock"></i> Waktu</div><div class="bmkg-value" id="quakeTime">—</div></div>
-                </div>
-                <button class="refresh-btn" onclick="loadBMKG()"><i class="fas fa-sync"></i> Refresh</button>
-                <p class="small-note" style="margin-top:6px;"><i class="fas fa-shield-alt"></i> Data gempa terkini via BMKG (proxy)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-      <span>© 2026 <strong>chromelatte</strong> — dibangun dengan <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon</span>
-      <div class="socials">
-        <a href="https://t.me/chromelatte" target="_blank"><i class="fab fa-telegram-plane"></i></a>
-        <a href="https://t.me/ksduit" target="_blank"><i class="fas fa-shield-alt"></i></a>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ===== SCRIPT MOBILE TOGGLE ===== -->
-  <script>
-    (function() {
-      const toggle = document.getElementById('menuToggle');
-      const links = document.getElementById('navLinks');
-      if (toggle && links) {
-        toggle.addEventListener('click', function(e) {
-          e.stopPropagation();
-          links.classList.toggle('open');
-          const icon = toggle.querySelector('i');
-          if (icon) {
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-          }
-        });
-        links.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            links.classList.remove('open');
-            const icon = toggle.querySelector('i');
-            if (icon) {
-              icon.classList.add('fa-bars');
-              icon.classList.remove('fa-times');
-            }
-          });
-        });
-      }
-    })();
-  </script>
-
-  <!-- ===== DASHBOARD API (DIPERBAIKI) ===== -->
-  <script>
-    // =============================================
-    // PROXY & HELPER
-    // =============================================
-    const PROXY = 'https://api.allorigins.win/raw?url=';
-    
-    async function fetchWithProxy(url) {
-      const res = await fetch(PROXY + encodeURIComponent(url), { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.text();
-    }
-
-    async function fetchJSON(url) {
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    }
-
-    function setStatus(el, text, type = 'loading') {
-      if (!el) return;
-      el.textContent = text;
-      el.className = 'small-note';
-      if (type === 'ok') el.classList.add('status-ok');
-      else if (type === 'error') el.classList.add('status-error');
-      else el.classList.add('status-loading');
-    }
-
-    // =============================================
-    // 1. ECONOMIC (USD/IDR + IHSG)
-    // =============================================
-    async function loadEconomic() {
-      const timeEl = document.getElementById('economicTime');
-      const usdEl = document.getElementById('usdIdr');
-      const usdDeltaEl = document.getElementById('usdIdrDelta');
-      const ihsgEl = document.getElementById('ihsg');
-      const ihsgDeltaEl = document.getElementById('ihsgDelta');
-
-      setStatus(timeEl, '🔄 updating...', 'loading');
-
-      try {
-        // USD/IDR
-        const usd = await fetchJSON('https://api.exchangerate.host/latest?base=USD&symbols=IDR');
-        const rate = usd?.rates?.IDR;
-        usdEl.textContent = rate ? new Intl.NumberFormat('id-ID').format(rate) : '—';
-
-        // Delta USD
-        let deltaUsd = 0;
-        try {
-          const prev = await fetchJSON('https://api.exchangerate.host/latest?base=USD&symbols=IDR&date=' + new Date(Date.now()-86400000).toISOString().slice(0,10));
-          const prevRate = prev?.rates?.IDR;
-          if (typeof prevRate === 'number' && prevRate > 0 && typeof rate === 'number') {
-            deltaUsd = ((rate - prevRate) / prevRate) * 100;
-          }
-        } catch (e) {}
-        updateDelta(usdDeltaEl, deltaUsd);
-
-        // IHSG (pakai Yahoo Finance symbol ^JKSE)
-        try {
-          const ih = await fetchJSON('https://query1.finance.yahoo.com/v7/finance/quote?symbols=^JKSE');
-          const result = ih?.quoteResponse?.result?.[0];
-          if (result) {
-            const price = result.regularMarketPrice;
-            ihsgEl.textContent = price ? new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 }).format(price) : '—';
-            const chg = result.regularMarketChangePercent;
-            updateDelta(ihsgDeltaEl, typeof chg === 'number' ? chg : 0);
-          } else {
-            throw new Error('No data');
-          }
-        } catch (e) {
-          // Fallback: coba S&P500 sebagai alternatif
-          try {
-            const sp = await fetchJSON('https://query1.finance.yahoo.com/v7/finance/quote?symbols=^GSPC');
-            const spResult = sp?.quoteResponse?.result?.[0];
-            if (spResult) {
-              ihsgEl.textContent = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 }).format(spResult.regularMarketPrice) + ' (S&P)';
-              updateDelta(ihsgDeltaEl, spResult.regularMarketChangePercent || 0);
-            }
-          } catch (e2) {
-            ihsgEl.textContent = '⚠️';
-            ihsgDeltaEl.textContent = '—';
-            ihsgDeltaEl.className = 'delta neutral';
-          }
-        }
-
-        setStatus(timeEl, '✅ ' + new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }), 'ok');
-      } catch (e) {
-        setStatus(timeEl, '⚠️ Gagal', 'error');
-        usdEl.textContent = '—';
-        usdDeltaEl.textContent = '—';
-        ihsgEl.textContent = '—';
-        ihsgDeltaEl.textContent = '—';
-      }
-    }
-
-    function updateDelta(el, delta) {
-      el.classList.remove('good', 'bad', 'neutral');
-      if (delta > 0) { el.classList.add('good'); el.textContent = '+' + delta.toFixed(2) + '%'; }
-      else if (delta < 0) { el.classList.add('bad'); el.textContent = delta.toFixed(2) + '%'; }
-      else { el.classList.add('neutral'); el.textContent = '0%'; }
-    }
-
-    // =============================================
-    // 2. GOVERNMENT FEED (via proxy untuk CORS)
-    // =============================================
-    async function loadGovFeed() {
-      const feedEl = document.getElementById('govFeed');
-      feedEl.innerHTML = '<div class="feed-item shimmer">Memuat berita...</div>';
-
-      try {
-        // Gunakan proxy untuk ambil RSS
-        const xml = await fetchWithProxy('https://www.kominfo.go.id/rss/berita/rss');
-        
-        // Parse XML manual (tanpa library)
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(xml, 'text/xml');
-        const items = doc.querySelectorAll('item');
-        
-        if (!items.length) throw new Error('Tidak ada item');
-
-        let html = '';
-        const maxItems = Math.min(items.length, 6);
-        for (let i = 0; i < maxItems; i++) {
-          const item = items[i];
-          const title = item.querySelector('title')?.textContent?.trim() || 'Untitled';
-          const link = item.querySelector('link')?.textContent?.trim() || '#';
-          const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
-          const date = pubDate ? new Date(pubDate).toLocaleDateString('id-ID') : '';
-          html += `
-            <a class="feed-item" href="${link}" target="_blank" rel="noreferrer">
-              <div class="feed-title">${title}</div>
-              <div class="feed-meta">${date}</div>
-            </a>
-          `;
-        }
-        feedEl.innerHTML = html || '<div class="feed-item">⚠️ Tidak ada berita</div>';
-      } catch (e) {
-        console.warn('GovFeed error:', e);
-        // Fallback: coba rss2json
-        try {
-          const json = await fetchJSON('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://www.kominfo.go.id/rss/berita/rss'));
-          const items = json?.items || [];
-          if (items.length) {
-            let html = '';
-            const top = items.slice(0, 6);
-            for (const it of top) {
-              const title = (it?.title || 'Untitled').trim();
-              const link = it?.link || '#';
-              const date = it?.pubDate ? new Date(it.pubDate).toLocaleDateString('id-ID') : '';
-              html += `
-                <a class="feed-item" href="${link}" target="_blank" rel="noreferrer">
-                  <div class="feed-title">${title}</div>
-                  <div class="feed-meta">${date}</div>
+        <!-- ===== NAVBAR ===== -->
+        <header class="navbar">
+            <div class="logo"><i class="fas fa-code"></i> chromelatte</div>
+            <button class="hamburger" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="projects.html"><i class="fas fa-robot"></i> Projects</a>
+                <a href="trust.html"><i class="fas fa-shield-alt"></i> Trust</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="ascii.html"><i class="fas fa-image"></i> ASCII</a>
+                <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="generator.html"><i class="fas fa-magic"></i> Generator</a>
+                <a href="utility-hub.html"><i class="fas fa-tools"></i> Utility</a>
+                <a href="https://t.me/chromelatte" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram-plane"></i> Owner
                 </a>
-              `;
+            </nav>
+        </header>
+
+        <!-- ===== PROFIL ===== -->
+        <div class="profile-card">
+            <div class="profile-avatar"><span></span></div>
+            <div class="profile-info">
+                <h2>
+                    chromelatte
+                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                </h2>
+                <div class="username">@chromelatte · Developer &amp; Creator</div>
+                <div class="bio">Builder of bots, lover of clean code &amp; neon vibes.</div>
+            </div>
+        </div>
+
+        <!-- ===== FORM POSTING BARU (hanya admin) ===== -->
+        <div class="post-form" id="postForm">
+            <textarea id="postInput" placeholder="Apa yang sedang kamu pikirkan?"></textarea>
+            <div class="form-actions">
+                <button class="btn-cancel" onclick="document.getElementById('postInput').value=''">Batal</button>
+                <button class="btn-post" id="postBtn"><i class="fas fa-pen"></i> Posting</button>
+            </div>
+        </div>
+
+        <!-- ===== FEED POSTINGAN ===== -->
+        <div id="feedContainer"></div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <span>© 2026 <strong>chromelatte</strong> — dibangun dengan <i class="fas fa-heart" style="color:var(--cyan);"></i> &amp; neon</span>
+            <div class="socials">
+                <a href="https://t.me/chromelatte" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://t.me/ksduit" target="_blank"><i class="fas fa-shield-alt"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== MOBILE TOGGLE ===== -->
+    <script>
+        (function() {
+            const toggle = document.getElementById('menuToggle');
+            const links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    links.classList.toggle('open');
+                    const icon = toggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-times');
+                    }
+                });
+                links.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        links.classList.remove('open');
+                        const icon = toggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                    });
+                });
             }
-            feedEl.innerHTML = html;
-            return;
-          }
-        } catch (e2) {
-          console.warn('RSS2JSON fallback error:', e2);
+        })();
+    </script>
+
+    <!-- ===== ENGINE SOSIAL ===== -->
+    <script>
+        // ============================================================
+        //  KONFIGURASI
+        // ============================================================
+        const LIKE_INCREMENT = 50;
+        const COMMENT_INCREMENT = 5;
+        const TARGET_LIKES_BASE = 10000; // target like per postingan (akan ditambah random)
+        const TARGET_COMMENTS_BASE = 5000; // target komentar per postingan
+
+        const BOT_NAMES = [
+            'Andi', 'Budi', 'Citra', 'Dedi', 'Eka', 'Fajar', 'Gita', 'Hendra', 'Indah', 'Joko',
+            'Kartika', 'Lestari', 'Maya', 'Nanda', 'Omar', 'Putri', 'Rahmat', 'Sari', 'Tono', 'Umi',
+            'Vina', 'Wahyu', 'Xander', 'Yuni', 'Zaki', 'Ayu', 'Bayu', 'Cinta', 'Doni', 'Eva',
+            'Farhan', 'Gilang', 'Hana', 'Irfan', 'Jihan', 'Kevin', 'Laras', 'Miko', 'Nina', 'Oki',
+            'Prita', 'Qori', 'Rina', 'Sinta', 'Tama', 'Utari', 'Vero', 'Winda', 'Yoga', 'Zara'
+        ];
+
+        const BOT_COMMENTS = [
+            'Sangat menginspirasi! Terima kasih sudah berbagi 🙌',
+            'Mantap sekali! Semangat terus 💪',
+            'Setuju banget, mimpi itu penting 🚀',
+            'Kata-kata yang menyentuh hati 😢',
+            'Luar biasa, saya juga sedang berjuang mewujudkan mimpi!',
+            'Terima kasih atas motivasinya, sangat berarti 🙏',
+            'Aku percaya setiap orang punya takdir besar ✨',
+            'Jangan menyerah! Masa depan cerah menanti 🌟',
+            'Ini mengingatkanku untuk terus melangkah',
+            'Semangat! Semoga kita semua sukses 💯',
+            'Mimpi adalah kunci menuju kebahagiaan 🌈',
+            'Keren banget caption-nya, saya suka!',
+            'Saya setuju, kita harus terus berkarya',
+            'Motivasi ini sangat berarti untuk hari-hariku',
+            'Teruslah menjadi inspirasi bagi orang lain 🌺',
+            'Amin! Semoga semua mimpi terkabul 🤲',
+            'Gak pernah bosan baca postingan kaya gini',
+            'Inilah yang aku butuhkan hari ini, makasih',
+            'Semoga kita semua diberikan kekuatan 🦁',
+            'Sukses selalu untukmu dan semua orang',
+            'Terinspirasi, langsung mau ngejar mimpi lagi!',
+            'Keren, aku share ke teman-teman juga',
+            'Mimpi itu gratis, jadi jangan takut bermimpi besar!',
+            'Jadikan hari ini lebih baik dari kemarin 💫',
+            'Kata-kata yang menenangkan jiwa',
+            'Aku suka dengan pesan positif seperti ini 🌻',
+            'Semangat pagi! Terima kasih sudah mengingatkan',
+            'Hidup adalah perjalanan, nikmati setiap momen',
+            'Saya mendukung setiap langkah kecil yang berarti',
+            'Kamu hebat, teruslah berkontribusi untuk dunia',
+            'Dunia butuh lebih banyak kebaikan seperti ini',
+            'Tetap rendah hati dan teruslah belajar',
+            'Saya percaya bahwa usaha tidak akan mengkhianati hasil',
+            'Semoga semua orang mendapatkan kebahagiaan sejati 🕊️',
+            'Terima kasih sudah menjadi inspirasi bagi banyak orang',
+            'Mulai dari hal kecil, tapi dampaknya besar 🌱',
+            'Jangan ragu untuk bermimpi tinggi, karena itu mungkin',
+            'Saya terharu membaca caption ini 😭',
+            'Kualitas diri ditentukan oleh seberapa besar kita bermimpi',
+            'Sukses adalah hak semua orang yang berusaha',
+        ];
+
+        // ============================================================
+        //  STATE POSTINGAN
+        // ============================================================
+        let posts = [];
+        let currentPage = 1;
+        const COMMENTS_PER_PAGE = 20;
+
+        // ============================================================
+        //  LOAD & SAVE STATE
+        // ============================================================
+        function loadState() {
+            const stored = localStorage.getItem('dashboardPosts');
+            if (stored) {
+                try {
+                    posts = JSON.parse(stored);
+                } catch (_) {
+                    posts = [];
+                }
+            } else {
+                // Buat postingan default dengan target random
+                const defaultPost = createNewPost(
+                    `🌟 Jangan pernah berhenti bermimpi, karena mimpi adalah bahan bakar jiwa.\nSetiap langkah kecil hari ini adalah fondasi besar untuk masa depan.\nTeruslah berkarya, sebarkan kebaikan, dan jadilah versi terbaik dari dirimu.\n💪✨`,
+                    true
+                );
+                // Set target lebih tinggi untuk postingan pertama
+                defaultPost.targetLikes = 140000;
+                defaultPost.targetComments = 80000;
+                // Tambahkan komentar awal
+                defaultPost.comments = generateBotComments(500);
+                posts = [defaultPost];
+                saveState();
+            }
+            // Pastikan setiap post punya properti yang dibutuhkan
+            posts = posts.map(p => ({
+                ...p,
+                likedBy: p.likedBy || [],
+                comments: p.comments || [],
+                verified: p.verified || false,
+                targetLikes: p.targetLikes || (TARGET_LIKES_BASE + Math.floor(Math.random() * 5000)),
+                targetComments: p.targetComments || (TARGET_COMMENTS_BASE + Math.floor(Math.random() * 3000))
+            }));
+            // Urutkan dari yang terbaru
+            posts.sort((a, b) => b.timestamp - a.timestamp);
         }
-        feedEl.innerHTML = `
-          <div class="feed-item">⚠️ Gagal memuat feed. Coba refresh.</div>
-          <div class="feed-item">💡 Alternatif: <a href="https://www.kominfo.go.id" target="_blank" style="color:var(--cyan);">kominfo.go.id</a></div>
-        `;
-      }
-    }
 
-    // =============================================
-    // 3. BMKG MONITOR (via proxy untuk CORS)
-    // =============================================
-    async function loadBMKG() {
-      const timeEl = document.getElementById('bmkgTime');
-      const locEl = document.getElementById('quakeLoc');
-      const magEl = document.getElementById('quakeMag');
-      const tEl = document.getElementById('quakeTime');
+        function saveState() {
+            localStorage.setItem('dashboardPosts', JSON.stringify(posts));
+        }
 
-      setStatus(timeEl, '🔄 updating...', 'loading');
+        // ============================================================
+        //  FUNGSI PEMBUAT POSTINGAN
+        // ============================================================
+        function createNewPost(text, verified = false) {
+            return {
+                id: 'p' + Date.now(),
+                text: text,
+                timestamp: Date.now(),
+                likes: 0,
+                likedBy: [],
+                comments: [],
+                verified: verified,
+                targetLikes: TARGET_LIKES_BASE + Math.floor(Math.random() * 5000),
+                targetComments: TARGET_COMMENTS_BASE + Math.floor(Math.random() * 3000)
+            };
+        }
 
-      try {
-        // Gunakan proxy untuk ambil data BMKG
-        const jsonStr = await fetchWithProxy('https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json');
-        const data = JSON.parse(jsonStr);
-        
-        const list = data?.Infogempa?.list || [];
-        const first = list[0];
+        // ============================================================
+        //  GENERATE KOMENTAR BOT
+        // ============================================================
+        function generateBotComments(count) {
+            const result = [];
+            const now = Date.now();
+            const day = 86400000;
+            for (let i = 0; i < count; i++) {
+                const name = BOT_NAMES[Math.floor(Math.random() * BOT_NAMES.length)];
+                const text = BOT_COMMENTS[Math.floor(Math.random() * BOT_COMMENTS.length)];
+                const daysAgo = Math.floor(Math.random() * 30);
+                const timestamp = now - daysAgo * day - Math.floor(Math.random() * day);
+                result.push({
+                    id: 'bc' + i + '_' + Date.now() + Math.random(),
+                    name: name,
+                    text: text,
+                    timestamp: timestamp
+                });
+            }
+            result.sort((a, b) => b.timestamp - a.timestamp);
+            return result;
+        }
 
-        if (!first) throw new Error('Tidak ada data gempa');
+        // ============================================================
+        //  RENDER FEED
+        // ============================================================
+        function renderFeed() {
+            const container = document.getElementById('feedContainer');
+            if (posts.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:30px 0;color:var(--muted);">Belum ada postingan. Buat postingan pertama!</div>';
+                return;
+            }
 
-        locEl.textContent = first.Wilayah || '—';
-        magEl.textContent = first.Magnitude ? String(first.Magnitude) : '—';
-        
-        let waktu = '—';
-        try {
-          const jam = first.Jam || '';
-          const tgl = first.Tanggal || '';
-          waktu = [tgl, jam].filter(Boolean).join(' ') || '—';
-        } catch (e) {}
-        tEl.textContent = waktu;
+            let html = '';
+            for (const post of posts) {
+                const timeStr = timeAgo(post.timestamp);
+                const likeCount = post.likes || 0;
+                const commentCount = post.comments ? post.comments.length : 0;
+                const isLiked = post.likedBy && post.likedBy.includes('current_user');
 
-        setStatus(timeEl, '✅ ' + new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }), 'ok');
-      } catch (e) {
-        console.warn('BMKG error:', e);
-        setStatus(timeEl, '⚠️ Gagal', 'error');
-        locEl.textContent = '—';
-        magEl.textContent = '—';
-        tEl.textContent = '—';
-      }
-    }
+                // Tampilkan komentar (paginasi)
+                const visibleComments = post.comments ? post.comments.slice(0, COMMENTS_PER_PAGE) : [];
+                const hasMoreComments = post.comments && post.comments.length > COMMENTS_PER_PAGE;
 
-    // =============================================
-    // AUTO REFRESH (5 menit)
-    // =============================================
-    function refreshAll() {
-      loadEconomic();
-      loadGovFeed();
-      loadBMKG();
-    }
+                html += `
+                    <div class="post-card" data-postid="${post.id}">
+                        <div class="post-header">
+                            <div class="post-avatar"><span></span></div>
+                            <span class="post-user">
+                                chromelatte
+                                ${post.verified ? '<span class="verified-badge"><i class="fas fa-check"></i></span>' : ''}
+                            </span>
+                            <span class="post-time">• ${timeStr}</span>
+                            ${post.verified ? `<button class="delete-post" onclick="deletePost('${post.id}')"><i class="fas fa-trash"></i></button>` : ''}
+                        </div>
+                        <div class="post-content">${post.text}</div>
+                        <div class="post-stats">
+                            <span><i class="fas fa-heart" style="color:var(--like-color);"></i> <span class="like-count-${post.id}">${formatNumber(likeCount)}</span> suka</span>
+                            <span><i class="fas fa-comment"></i> <span class="comment-count-${post.id}">${formatNumber(commentCount)}</span> komentar</span>
+                        </div>
+                        <div class="post-actions">
+                            <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
+                                <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i> Suka
+                            </button>
+                            <button onclick="document.getElementById('commentInput-${post.id}').focus()">
+                                <i class="far fa-comment"></i> Komentar
+                            </button>
+                        </div>
 
-    // Load pertama
-    refreshAll();
+                        <div class="comment-section">
+                            <div class="comment-count"><span class="comment-count-label-${post.id}">${formatNumber(commentCount)}</span> Komentar</div>
+                            <div id="commentList-${post.id}">
+                                ${visibleComments.map(c => `
+                                    <div class="comment-item">
+                                        <div class="comment-body">
+                                            <span class="comment-name">${c.name}</span>
+                                            <span class="comment-text">${c.text}</span>
+                                            <span class="comment-time">• ${timeAgo(c.timestamp)}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${hasMoreComments ? `<button class="load-more-btn" onclick="loadMoreComments('${post.id}')">Tampilkan komentar lainnya</button>` : ''}
 
-    // Auto refresh setiap 5 menit
-    setInterval(refreshAll, 5 * 60 * 1000);
+                            <!-- Form komentar per postingan -->
+                            <div class="comment-form">
+                                <div class="form-row">
+                                    <input type="text" id="commentName-${post.id}" placeholder="Nama Anda" maxlength="30" />
+                                </div>
+                                <textarea id="commentInput-${post.id}" placeholder="Tulis komentar..."></textarea>
+                                <button onclick="submitComment('${post.id}')">Kirim Komentar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
 
-    // Global status
-    document.getElementById('globalStatus').textContent = '🟢 Live • auto-refresh 5m';
-  </script>
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        //  FUNGSI PEMBANTU
+        // ============================================================
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'juta';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'rb';
+            return num.toString();
+        }
+
+        function timeAgo(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const weeks = Math.floor(days / 7);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(days / 365);
+
+            if (years > 0) return years + ' tahun yang lalu';
+            if (months > 0) return months + ' bulan yang lalu';
+            if (weeks > 0) return weeks + ' minggu yang lalu';
+            if (days > 0) return days + ' hari yang lalu';
+            if (hours > 0) return hours + ' jam yang lalu';
+            if (minutes > 0) return minutes + ' menit yang lalu';
+            return 'beberapa saat yang lalu';
+        }
+
+        // ============================================================
+        //  LIKE
+        // ============================================================
+        function toggleLike(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+            if (!post.likedBy) post.likedBy = [];
+
+            const idx = post.likedBy.indexOf('current_user');
+            if (idx > -1) {
+                post.likedBy.splice(idx, 1);
+                post.likes = (post.likes || 1) - 1;
+            } else {
+                post.likedBy.push('current_user');
+                post.likes = (post.likes || 0) + 1;
+            }
+            saveState();
+            renderFeed();
+        }
+
+        // ============================================================
+        //  KOMENTAR
+        // ============================================================
+        function submitComment(postId) {
+            const nameInput = document.getElementById('commentName-' + postId);
+            const textInput = document.getElementById('commentInput-' + postId);
+            const name = nameInput.value.trim() || 'Anonim';
+            const text = textInput.value.trim();
+            if (!text) {
+                alert('Tulis komentar dulu!');
+                return;
+            }
+
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+            if (!post.comments) post.comments = [];
+
+            post.comments.unshift({
+                id: 'u' + Date.now(),
+                name: name,
+                text: text,
+                timestamp: Date.now()
+            });
+
+            saveState();
+            renderFeed();
+            nameInput.value = '';
+            textInput.value = '';
+        }
+
+        function loadMoreComments(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post || !post.comments) return;
+            renderFeed();
+        }
+
+        // ============================================================
+        //  HAPUS POSTINGAN
+        // ============================================================
+        function deletePost(postId) {
+            if (!confirm('Yakin mau hapus postingan ini?')) return;
+            posts = posts.filter(p => p.id !== postId);
+            saveState();
+            renderFeed();
+        }
+
+        // ============================================================
+        //  BUAT POSTINGAN BARU
+        // ============================================================
+        document.getElementById('postBtn').addEventListener('click', function() {
+            const input = document.getElementById('postInput');
+            const text = input.value.trim();
+            if (!text) {
+                alert('Tulis caption dulu!');
+                return;
+            }
+
+            const newPost = createNewPost(text, true);
+            posts.unshift(newPost);
+            saveState();
+            renderFeed();
+            input.value = '';
+        });
+
+        // ============================================================
+        //  AUTO-LIKE & AUTO-COMMENT UNTUK SEMUA POSTINGAN
+        // ============================================================
+        function autoLikeAndComment() {
+            for (const post of posts) {
+                // LIKE
+                if (post.likes < post.targetLikes) {
+                    const increment = Math.min(LIKE_INCREMENT, post.targetLikes - post.likes);
+                    post.likes += increment;
+                }
+
+                // KOMENTAR
+                if (post.comments.length < post.targetComments) {
+                    const count = Math.min(COMMENT_INCREMENT, post.targetComments - post.comments.length);
+                    const now = Date.now();
+                    for (let i = 0; i < count; i++) {
+                        const name = BOT_NAMES[Math.floor(Math.random() * BOT_NAMES.length)];
+                        const text = BOT_COMMENTS[Math.floor(Math.random() * BOT_COMMENTS.length)];
+                        post.comments.unshift({
+                            id: 'b' + Date.now() + i + Math.random(),
+                            name: name,
+                            text: text,
+                            timestamp: now - i * 1000
+                        });
+                    }
+                }
+            }
+            saveState();
+            renderFeed();
+        }
+
+        // ============================================================
+        //  SINKRONISASI ANTAR TAB
+        // ============================================================
+        function syncFromStorage() {
+            const stored = localStorage.getItem('dashboardPosts');
+            if (stored) {
+                try {
+                    const newPosts = JSON.parse(stored);
+                    if (JSON.stringify(newPosts) !== JSON.stringify(posts)) {
+                        posts = newPosts;
+                        renderFeed();
+                    }
+                } catch (_) {}
+            }
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        loadState();
+        renderFeed();
+
+        // Auto-like & auto-comment setiap 60 detik
+        setInterval(autoLikeAndComment, 60000);
+
+        // Sinkronisasi antar tab setiap 10 detik
+        setInterval(syncFromStorage, 10000);
+
+        // Update waktu relatif setiap 30 detik
+        setInterval(() => {
+            document.querySelectorAll('.post-time').forEach(el => {
+                const card = el.closest('.post-card');
+                if (card) {
+                    const postId = card.dataset.postid;
+                    const post = posts.find(p => p.id === postId);
+                    if (post) {
+                        el.textContent = '• ' + timeAgo(post.timestamp);
+                    }
+                }
+            });
+        }, 30000);
+    </script>
+
 </body>
 </html>

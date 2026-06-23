@@ -6,10 +6,62 @@
   <title>Projects • chromelatte 🧩✨</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ===== BADGE VERIFIED META-STYLE ===== */
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: #1b8cff;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 13px;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .verified-badge i {
+      font-size: 12px;
+    }
+    .verified-badge-sm {
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .verified-badge-sm i {
+      font-size: 9px;
+    }
+
+    /* Bot card badge */
+    .bot-card h3 {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .section-head .verified-label {
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(27, 140, 255, 0.12);
+      padding: 4px 14px;
+      border-radius: 40px;
+      border: 1px solid rgba(27, 140, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-head .verified-label i {
+      color: #1b8cff;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <!-- ===== NAVBAR (sama dengan index.html) ===== -->
+    <!-- ===== NAVBAR ===== -->
     <header class="navbar">
       <div class="logo">
         <i class="fas fa-code"></i> chromelatte
@@ -38,15 +90,18 @@
         <div class="container">
           <div class="section-head">
             <h2 class="h2">🧩 Bot Projects</h2>
-            <p class="small-note">Semua bot Telegram yang saya bangun — klik untuk langsung mencoba</p>
+            <span class="verified-label"><i class="fas fa-check-circle"></i> Semua bot resmi terverifikasi</span>
           </div>
 
-          <!-- Grid bot (sama seperti di index.html, konsisten) -->
+          <!-- Grid bot (sama seperti di index.html) -->
           <div class="bot-grid">
             <!-- @ArcekBot -->
             <div class="bot-card">
               <div class="bot-icon"><i class="fas fa-bell"></i></div>
-              <h3>@ArcekBot</h3>
+              <h3>
+                @ArcekBot
+                <span class="verified-badge verified-badge-sm"><i class="fas fa-check"></i></span>
+              </h3>
               <p class="bot-desc">Bot alarm &amp; notifikasi real‑time.</p>
               <a href="https://t.me/ArcekBot" target="_blank" class="bot-link">
                 <i class="fab fa-telegram-plane"></i> Buka Bot
@@ -56,17 +111,23 @@
             <!-- @SplitesBot -->
             <div class="bot-card">
               <div class="bot-icon"><i class="fas fa-cut"></i></div>
-              <h3>@SplitesBot</h3>
+              <h3>
+                @SplitesBot
+                <span class="verified-badge verified-badge-sm"><i class="fas fa-check"></i></span>
+              </h3>
               <p class="bot-desc">Pecah &amp; gabung file dengan mudah.</p>
               <a href="https://t.me/SplitesBot" target="_blank" class="bot-link">
                 <i class="fab fa-telegram-plane"></i> Buka Bot
               </a>
               <div class="badge-tag">📂 File</div>
             </div>
-            <!-- @ArlatteBot (CV) -->
+            <!-- @ArlatteBot -->
             <div class="bot-card">
               <div class="bot-icon"><i class="fas fa-file-alt"></i></div>
-              <h3>@ArlatteBot</h3>
+              <h3>
+                @ArlatteBot
+                <span class="verified-badge verified-badge-sm"><i class="fas fa-check"></i></span>
+              </h3>
               <p class="bot-desc">Bot CV &amp; file nokos (serbaguna).</p>
               <a href="https://t.me/ArlatteBot" target="_blank" class="bot-link">
                 <i class="fab fa-telegram-plane"></i> Buka Bot
@@ -76,7 +137,10 @@
             <!-- @FixGenBot -->
             <div class="bot-card">
               <div class="bot-icon"><i class="fas fa-bug"></i></div>
-              <h3>@FixGenBot</h3>
+              <h3>
+                @FixGenBot
+                <span class="verified-badge verified-badge-sm"><i class="fas fa-check"></i></span>
+              </h3>
               <p class="bot-desc">Bot fix &amp; generate red‑text.</p>
               <a href="https://t.me/FixGenBot" target="_blank" class="bot-link">
                 <i class="fab fa-telegram-plane"></i> Buka Bot
@@ -86,17 +150,23 @@
             <!-- @ArvaulthMusicBot -->
             <div class="bot-card">
               <div class="bot-icon"><i class="fas fa-music"></i></div>
-              <h3>@ArvaulthMusicBot</h3>
+              <h3>
+                @ArvaulthMusicBot
+                <span class="verified-badge verified-badge-sm"><i class="fas fa-check"></i></span>
+              </h3>
               <p class="bot-desc">Musik dengan nuansa neon &amp; playlist.</p>
               <a href="https://t.me/ArvaulthMusicBot" target="_blank" class="bot-link">
                 <i class="fab fa-telegram-plane"></i> Buka Bot
               </a>
               <div class="badge-tag">🎵 Musik</div>
             </div>
-            <!-- @userkromBot (Panel Nokos) -->
+            <!-- @userkromBot -->
             <div class="bot-card">
               <div class="bot-icon"><i class="fas fa-tools"></i></div>
-              <h3>@userkromBot</h3>
+              <h3>
+                @userkromBot
+                <span class="verified-badge verified-badge-sm"><i class="fas fa-check"></i></span>
+              </h3>
               <p class="bot-desc">Panel nokos &amp; utility bot.</p>
               <a href="https://t.me/userkromBot" target="_blank" class="bot-link">
                 <i class="fab fa-telegram-plane"></i> Buka Bot
@@ -113,7 +183,7 @@
       </section>
     </main>
 
-    <!-- ===== FOOTER (sama dengan index.html) ===== -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
       <span>
         © 2026 <strong>chromelatte</strong> — dibangun dengan
@@ -130,7 +200,7 @@
     </footer>
   </div>
 
-  <!-- ===== SCRIPT MOBILE TOGGLE (sama) ===== -->
+  <!-- ===== SCRIPT MOBILE TOGGLE ===== -->
   <script>
     (function() {
       const toggle = document.getElementById('menuToggle');

@@ -117,7 +117,7 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: 200px;
   /* Ganti linear-gradient dengan url gambar */
-  background: url('profile/cover.jpg') center/cover no-repeat;
+  background: url('../profile/cover.jpg') center/cover no-repeat;
   /* Tambahkan background-color sebagai fallback jika gambar gagal dimuat */
   background-color: #1e2a4a; 
   border-radius: var(--radius) var(--radius) 0 0;
@@ -1040,4 +1040,67 @@ label { color: var(--muted); font-weight: 700; font-size: 13px; display: block; 
   .dash-table th,
   .dash-table td { padding: 6px 8px; font-size: 13px; }
   .delta { font-size: 11px; padding: 2px 8px; }
+}
+/* ===== VERIFIED BADGE (seperti Meta) ===== */
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #1b8cff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  vertical-align: middle;
+  margin-left: 2px;
+}
+.verified-badge i {
+  font-size: 11px;
+}
+
+/* Badge di avatar (overlay) */
+.avatar {
+  position: relative;
+}
+.avatar-verified {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 24px;
+  height: 24px;
+  background: #1b8cff;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+}
+.avatar-verified i {
+  font-size: 13px;
+}
+
+/* Untuk judul section */
+.section-title .verified-badge {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+}
+.section-title .verified-badge i {
+  font-size: 13px;
+}
+
+/* Untuk bot card */
+.bot-card h3 .verified-badge {
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+}
+.bot-card h3 .verified-badge i {
+  font-size: 9px;
 }
